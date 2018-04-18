@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorSidebar">#182027</color>
+    <color name="colorBackground">#222930</color>
+    <color name="colorKuning">#F8C82F</color>
+    <color name="colorMerah">#E4572E</color>
+    <color name="colorHijau">#1FB953</color>
+    <color name="colorTulisan">#47515b</color>
+    <color name="colorPutih">#fff</color>
+</resources>

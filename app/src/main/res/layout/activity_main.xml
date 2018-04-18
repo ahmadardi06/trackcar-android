@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackground"
+    tools:context="com.ansyah.ardi.trackcar.MainActivity"
+    android:weightSum="1">
+
+    <ImageView
+        android:src="@drawable/kondisireadyon"
+        android:id="@+id/imgAppRespon"
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ToggleButton
+            android:id="@+id/btnLocking"
+            android:background="@drawable/btn_rounded"
+            android:layout_margin="2.5dp"
+            android:textColor="@color/colorTulisan"
+            android:drawableTop="@drawable/ic_lock_open_black_24dp"
+            android:textOff="Locking"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content" />
+
+        <ToggleButton
+            android:id="@+id/btnLights"
+            android:background="@drawable/btn_rounded"
+            android:layout_margin="2.5dp"
+            android:textColor="@color/colorTulisan"
+            android:drawableTop="@drawable/ic_lamp_black_24dp"
+            android:textOff="Lights"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</LinearLayout>

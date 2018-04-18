@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:orientation="horizontal"
+    tools:context="com.ansyah.ardi.trackcar.AppsActivity">
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <ToggleButton
+            android:id="@+id/btnAppsGpss"
+            android:background="@drawable/btn_rounded"
+            android:textColor="@color/colorTulisan"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            android:textOff="GPS"
+            android:drawableTop="@drawable/ic_my_location_black_24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ToggleButton
+            android:id="@+id/btnAppsAlarm"
+            android:background="@drawable/btn_rounded"
+            android:textColor="@color/colorTulisan"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            android:textOff="Alarm"
+            android:drawableTop="@drawable/ic_access_alarm_black_24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ToggleButton
+            android:id="@+id/btnAppsLock"
+            android:background="@drawable/btn_rounded"
+            android:textColor="@color/colorTulisan"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            android:textOff="Lock"
+            android:drawableTop="@drawable/ic_lock_open_black_24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ToggleButton
+            android:id="@+id/btnAppsLights"
+            android:background="@drawable/btn_rounded"
+            android:textColor="@color/colorTulisan"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            android:textOff="Lights"
+            android:drawableTop="@drawable/ic_lamp_black_24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ToggleButton
+            android:id="@+id/btnAppsEngine"
+            android:background="@drawable/btn_rounded"
+            android:textColor="@color/colorTulisan"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            android:textOff="Engine"
+            android:drawableTop="@drawable/ic_flash_on_black_24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btnAppsMap"
+            android:background="@drawable/btn_rounded"
+            android:textColor="@color/colorTulisan"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            android:text="Maps"
+            android:drawableTop="@drawable/ic_map_black_24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btnAppsCamera"
+            android:background="@drawable/btn_rounded"
+            android:textColor="@color/colorTulisan"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            android:text="Camera"
+            android:drawableTop="@drawable/ic_linked_camera_black_24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btnAppsDriver"
+            android:background="@drawable/btn_rounded"
+            android:textColor="@color/colorTulisan"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            android:text="Driver"
+            android:drawableTop="@drawable/ic_picture_in_picture_black_24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imgAppsRespon"
+            android:src="@drawable/kondisireadyon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+</LinearLayout>
