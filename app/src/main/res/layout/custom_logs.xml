@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content" android:padding="10dp"
+    android:clickable="true" android:focusable="true"
+    android:background="@color/colorBackground">
+
+    <TextView
+        android:id="@+id/txtJenisLogs"
+        android:textColor="@color/colorPutih"
+        android:text="Title"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/txtKeteranganLogs"
+        android:textColor="@color/colorPutih"
+        android:text="Keterangan"
+        android:textSize="12dp"
+        android:layout_below="@+id/txtJenisLogs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/txtTanggal"
+        android:textColor="@color/colorPutih"
+        android:text="Keterangan"
+        android:textSize="10dp"
+        android:layout_below="@+id/txtKeteranganLogs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/gmbLogs"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_lamp_on"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

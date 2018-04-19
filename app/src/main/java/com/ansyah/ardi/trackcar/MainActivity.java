@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         Retrofit retro = new Retrofit.Builder().baseUrl(Aplikasi.URL_HOST)
                 .addConverterFactory(GsonConverterFactory.create()).build();
         ApiService service = retro.create(ApiService.class);
-        Call<RelayModel> call = service.getRelay();
+        Call<RelayModel> call = service.getRelay(Aplikasi.ID_MOBIL);
         call.enqueue(new Callback<RelayModel>() {
             @Override
             public void onResponse(Call<RelayModel> call, Response<RelayModel> response) {
@@ -106,7 +106,8 @@ public class MainActivity extends AppCompatActivity {
         btnAppsKanan .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Under Construction!.", Toast.LENGTH_LONG).show();
+                Intent frm  = new Intent(MainActivity.this, HistorylogsActivity.class);
+                startActivity(frm);
             }
         });
 

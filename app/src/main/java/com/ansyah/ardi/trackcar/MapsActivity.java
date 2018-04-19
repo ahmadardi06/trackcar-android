@@ -51,14 +51,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Retrofit retro = new Retrofit.Builder().baseUrl(Aplikasi.URL_HOST)
                 .addConverterFactory(GsonConverterFactory.create()).build();
         ApiService service = retro.create(ApiService.class);
-        Call<LocationModel> call = service.getLocation();
+        Call<LocationModel> call = service.getLocation(Aplikasi.ID_MOBIL);
         call.enqueue(new Callback<LocationModel>() {
             @Override
             public void onResponse(Call<LocationModel> call, Response<LocationModel> response) {
                 if(response.isSuccessful()){
                     // Add a marker in Sydney and move the camera
                     LatLng sydney = new LatLng(response.body().getLatitude(), response.body().getLongitude());
-                    mMap.addMarker(new MarkerOptions().position(sydney).title("Surabaya"));
+                    mMap.addMarker(new MarkerOptions().position(sydney).title("Your Car Now"));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
                     mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
                 }

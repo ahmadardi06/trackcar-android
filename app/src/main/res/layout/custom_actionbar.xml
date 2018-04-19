@@ -28,6 +28,6 @@
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:background="@android:color/transparent"
-        android:src="@drawable/ic_settings_black_24dp"/>
+        android:src="@drawable/ic_history_white"/>
 
 </RelativeLayout>

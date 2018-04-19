@@ -64,6 +64,7 @@ public class AppsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apps);
+        setTitle("Remote Your Car");
 
         mSocket.on("statuslampu", onStatusLampu);
         mSocket.on("statusengine", onStatusengine);
@@ -76,7 +77,7 @@ public class AppsActivity extends AppCompatActivity {
         Retrofit retro = new Retrofit.Builder().baseUrl(Aplikasi.URL_HOST)
                 .addConverterFactory(GsonConverterFactory.create()).build();
         ApiService service = retro.create(ApiService.class);
-        Call<RelayModel> call = service.getRelay();
+        Call<RelayModel> call = service.getRelay(Aplikasi.ID_MOBIL);
         call.enqueue(new Callback<RelayModel>() {
             @Override
             public void onResponse(Call<RelayModel> call, Response<RelayModel> response) {
@@ -314,7 +315,7 @@ public class AppsActivity extends AppCompatActivity {
                 Retrofit retro = new Retrofit.Builder().baseUrl(Aplikasi.URL_HOST)
                         .addConverterFactory(GsonConverterFactory.create()).build();
                 ApiService service = retro.create(ApiService.class);
-                Call<List<DriverModel>> call = service.getDriver();
+                Call<List<DriverModel>> call = service.getDriver(Aplikasi.ID_MOBIL);
                 call.enqueue(new Callback<List<DriverModel>>() {
                     @Override
                     public void onResponse(Call<List<DriverModel>> call, Response<List<DriverModel>> response) {
