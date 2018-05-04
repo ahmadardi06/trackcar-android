@@ -15,15 +15,27 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        lanjut = (TextView) findViewById(R.id.txtLanjut);
-        lanjut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+        Thread timer= new Thread()
+        {
+            public void run()
+            {
+                try {
+                    //Display for 2 seconds
+                    sleep(2000);
+                }
+                catch (InterruptedException e) {
+                    // TODO: handle exception
+                    e.printStackTrace();
+                }
+                finally {
+                    //Goes to Activity  StartingPoint.java(STARTINGPOINT)
+                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
-        });
+        };
+        timer.start();
 
     }
 }

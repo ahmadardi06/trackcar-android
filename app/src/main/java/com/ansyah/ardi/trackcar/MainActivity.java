@@ -15,6 +15,7 @@ import android.widget.ToggleButton;
 
 import com.ansyah.ardi.trackcar.Api.ApiService;
 import com.ansyah.ardi.trackcar.Config.Aplikasi;
+import com.ansyah.ardi.trackcar.Config.Utils;
 import com.ansyah.ardi.trackcar.Model.DriverModel;
 import com.ansyah.ardi.trackcar.Model.RelayModel;
 import com.github.nkzawa.emitter.Emitter;
@@ -40,16 +41,36 @@ public class MainActivity extends AppCompatActivity {
     ImageView imgRespon;
     ImageButton btnAppsKiri, btnAppsKanan;
 
+    public static final String PREF_USER_FIRST_TIME = "user_first_time";
+    boolean isUserFirstTime;
+    String[] colors = {"#96CC7A", "#EA705D", "#66BBCC"};
+
     private Socket mSocket;
     {
         try {
-            mSocket = IO.socket(Aplikasi.URL_HOST);
+            IO.Options opts = new IO.Options();
+            opts.forceNew = true;
+            opts.query = "idMobil=" + Aplikasi.ID_MOBIL;
+            mSocket = IO.socket(Aplikasi.URL_HOST, opts);
         } catch (URISyntaxException e) {}
+    }
+
+    protected void onStart(){
+        super.onStart();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        isUserFirstTime = Boolean.valueOf(Utils.readSharedSetting(MainActivity.this, PREF_USER_FIRST_TIME, "true"));
+
+        Intent introIntent = new Intent(MainActivity.this, PagerActivity.class);
+        introIntent.putExtra(PREF_USER_FIRST_TIME, isUserFirstTime);
+
+        if (isUserFirstTime)
+            startActivity(introIntent);
+
         setContentView(R.layout.activity_main);
 
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);

@@ -70,6 +70,17 @@
             android:layout_height="wrap_content" />
 
         <Button
+            android:id="@+id/btnStartEngine"
+            android:background="@drawable/btn_rounded"
+            android:textColor="@color/colorTulisan"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            android:text="Start"
+            android:drawableTop="@drawable/ic_settings_input_antenna_black_24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
             android:id="@+id/btnAppsMap"
             android:background="@drawable/btn_rounded"
             android:textColor="@color/colorTulisan"

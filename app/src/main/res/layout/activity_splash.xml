@@ -9,17 +9,18 @@
     tools:context="com.ansyah.ardi.trackcar.SplashActivity">
 
     <ImageView
+        android:layout_marginTop="150dp"
         android:layout_gravity="center_vertical"
-        android:src="@drawable/ic_flash_on_hijau"
+        android:src="@drawable/ic_local_car_wash"
         android:layout_width="match_parent"
-        android:layout_height="450dp" />
+        android:layout_height="250dp" />
 
     <TextView
         android:id="@+id/txtLanjut"
-        android:textSize="30dp"
+        android:textSize="15dp"
         android:textColor="@color/colorPutih"
         android:textAlignment="center"
-        android:text="track-CAR"
+        android:text="Please wait ... "
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

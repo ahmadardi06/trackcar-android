@@ -9,11 +9,13 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.ansyah.ardi.trackcar.Api.ApiService;
@@ -49,13 +51,16 @@ public class AppsActivity extends AppCompatActivity {
 
     ImageView imgAppsRespon, imgAppsDriver;
     ToggleButton btnGps, btnAlarm, btnLock, btnLights, btnEngine;
-    Button btnCamera, btnMaps, btnDriver;
+    Button btnCamera, btnMaps, btnDriver, btnStartEngine;
     TextView txtDrivers;
 
     private Socket mSocket;
     {
         try {
-            mSocket = IO.socket(Aplikasi.URL_HOST);
+            IO.Options opts = new IO.Options();
+            opts.forceNew = true;
+            opts.query = "idMobil=" + Aplikasi.ID_MOBIL;
+            mSocket = IO.socket(Aplikasi.URL_HOST, opts);
         }catch (URISyntaxException e){
         }
     }
@@ -187,6 +192,9 @@ public class AppsActivity extends AppCompatActivity {
                 }
             }
         });
+
+        btnStartEngine = (Button) findViewById(R.id.btnStartEngine);
+        btnStartEngine.setOnTouchListener(oStartEngine);
 
         btnMaps = (Button) findViewById(R.id.btnAppsMap);
         btnMaps.setOnClickListener(new View.OnClickListener() {
@@ -534,6 +542,36 @@ public class AppsActivity extends AppCompatActivity {
                     }
                 }
             });
+        }
+    };
+
+    private View.OnTouchListener oStartEngine = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            int aksi = motionEvent.getAction();
+            if(aksi == MotionEvent.ACTION_DOWN){
+//                Log.w("PRESS DOWN", String.valueOf(aksi));
+                JSONObject obj1 = new JSONObject();
+                try {
+                    obj1.put("msg", true);
+                    obj1.put("idmobil", Aplikasi.ID_MOBIL);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                mSocket.emit("statusalarm", obj1);
+            }
+            else if(aksi == MotionEvent.ACTION_UP){
+//                Log.w("PRESS UP", String.valueOf(aksi));
+                JSONObject obj1 = new JSONObject();
+                try {
+                    obj1.put("msg", false);
+                    obj1.put("idmobil", Aplikasi.ID_MOBIL);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                mSocket.emit("statusalarm", obj1);
+            }
+            return false;
         }
     };
 
