@@ -551,17 +551,22 @@ public class AppsActivity extends AppCompatActivity {
             int aksi = motionEvent.getAction();
             if(aksi == MotionEvent.ACTION_DOWN){
 //                Log.w("PRESS DOWN", String.valueOf(aksi));
-                JSONObject obj1 = new JSONObject();
-                try {
-                    obj1.put("msg", true);
-                    obj1.put("idmobil", Aplikasi.ID_MOBIL);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if (!btnEngine.isChecked()) {
+                    Toast.makeText(getApplicationContext(), "Engine still OFF, turn ON the Engine!.", Toast.LENGTH_LONG).show();
                 }
-                mSocket.emit("statusalarm", obj1);
+                else {
+                    JSONObject obj1 = new JSONObject();
+                    try {
+                        obj1.put("msg", true);
+                        obj1.put("idmobil", Aplikasi.ID_MOBIL);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    mSocket.emit("statusalarm", obj1);
+                }
             }
             else if(aksi == MotionEvent.ACTION_UP){
-//                Log.w("PRESS UP", String.valueOf(aksi));
+                Log.w("PRESS UP", String.valueOf(aksi));
                 JSONObject obj1 = new JSONObject();
                 try {
                     obj1.put("msg", false);

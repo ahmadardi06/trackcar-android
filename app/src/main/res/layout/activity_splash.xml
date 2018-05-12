@@ -5,23 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorBackground"
+    android:background="@color/blue_grey"
     tools:context="com.ansyah.ardi.trackcar.SplashActivity">
 
     <ImageView
         android:layout_marginTop="150dp"
         android:layout_gravity="center_vertical"
-        android:src="@drawable/ic_local_car_wash"
+        android:src="@drawable/logo_1"
         android:layout_width="match_parent"
         android:layout_height="250dp" />
-
-    <TextView
-        android:id="@+id/txtLanjut"
-        android:textSize="15dp"
-        android:textColor="@color/colorPutih"
-        android:textAlignment="center"
-        android:text="Please wait ... "
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
 </LinearLayout>

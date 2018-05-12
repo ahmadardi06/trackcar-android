@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ansyah.ardi.trackcar.Config.DateParser;
 import com.ansyah.ardi.trackcar.Model.LogsModel;
 import com.ansyah.ardi.trackcar.Model.LogsObjek;
 import com.ansyah.ardi.trackcar.R;
@@ -38,7 +39,7 @@ public class LogsAdapter extends RecyclerView.Adapter<LogsAdapter.MyViewHolder> 
         LogsModel logModel = logsData.get(position);
         holder.jenis.setText(logModel.getLogs().getJenis());
         holder.keterangan.setText(logModel.getLogs().getKeterangan());
-        holder.tanggal.setText(logModel.getLogs().getTanggal());
+        holder.tanggal.setText(DateParser.parseDateToDayDateMonthYear(logModel.getLogs().getTanggal()));
         holder.gambar.setImageResource((Integer) gambare.get(position));
     }
 
