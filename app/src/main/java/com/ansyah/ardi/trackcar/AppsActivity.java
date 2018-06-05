@@ -580,4 +580,11 @@ public class AppsActivity extends AppCompatActivity {
         }
     };
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        mSocket.disconnect();
+    }
+
 }
