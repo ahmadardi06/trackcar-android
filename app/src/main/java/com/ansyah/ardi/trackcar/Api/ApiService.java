@@ -10,6 +10,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -32,6 +33,7 @@ public interface ApiService {
     @GET("api/mobil/log/desc/{idmobil}")
     Call<ArrayList<LogsModel>> getLogsData(@Path("idmobil") String idmobil);
 
+    @FormUrlEncoded
     @PUT("api/mobil/token/{idmobil}")
     Call<String> setTokenMobil(@Field("tokenFirebase") String token, @Path("idmobil") String idmobil);
 
