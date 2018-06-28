@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.media.Image;
 import android.support.design.widget.CoordinatorLayout;
@@ -158,8 +159,9 @@ public class PagerActivity extends Activity {
             @Override
             public void onClick(View v) {
                 finish();
+                startActivity(new Intent(PagerActivity.this, LoginActivity.class));
                 //  update 1st time pref
-                Utils.saveSharedSetting(PagerActivity.this, MainActivity.PREF_USER_FIRST_TIME, "false");
+                Utils.saveSharedSetting(PagerActivity.this, LoginActivity.PREF_USER_FIRST_TIME, "false");
 
             }
         });

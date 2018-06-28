@@ -16,6 +16,14 @@
         android:layout_height="450dp"
         android:layout_weight="1" />
 
+    <!--<TextView-->
+        <!--android:id="@+id/txtIdMobilDanToken"-->
+        <!--android:textAlignment="center"-->
+        <!--android:textColor="@color/colorPutih"-->
+        <!--android:text="adf"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content" />-->
+
     <LinearLayout
         android:layout_marginBottom="10dp"
         android:gravity="center"
@@ -30,7 +38,9 @@
             android:textColor="@color/colorTulisan"
             android:drawableTop="@drawable/ic_lock_open_black_24dp"
             android:textOff="Locking"
-            android:layout_width="150dp"
+            android:layout_width="75dp"
+            android:fontFamily="casual"
+            android:textAllCaps="false"
             android:layout_height="wrap_content" />
 
         <ToggleButton
@@ -40,7 +50,33 @@
             android:textColor="@color/colorTulisan"
             android:drawableTop="@drawable/ic_lamp_black_24dp"
             android:textOff="Lights"
-            android:layout_width="150dp"
+            android:textAllCaps="false"
+            android:fontFamily="casual"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btnEngineMain"
+            android:background="@drawable/btn_rounded"
+            android:layout_margin="2.5dp"
+            android:textColor="@color/colorTulisan"
+            android:drawableTop="@drawable/ic_flash_on_black_24dp"
+            android:text="Engine"
+            android:fontFamily="casual"
+            android:textAllCaps="false"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btnLogoutMain"
+            android:background="@drawable/btn_rounded"
+            android:layout_margin="2.5dp"
+            android:textColor="@color/colorHijau"
+            android:drawableTop="@drawable/ic_logout_hijau"
+            android:text="Logout"
+            android:fontFamily="casual"
+            android:textAllCaps="false"
+            android:layout_width="75dp"
             android:layout_height="wrap_content" />
 
     </LinearLayout>

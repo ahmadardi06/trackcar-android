@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:orientation="vertical"
+    tools:context="com.ansyah.ardi.trackcar.LoginActivity">
+
+    <TextView
+        android:fontFamily="casual"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="35dp"
+        android:textColor="@color/colorPutih"
+        android:text="Sign In"
+        android:layout_marginTop="180dp"
+        android:id="@+id/textView"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/editEmail" />
+
+    <EditText
+        android:fontFamily="casual"
+        android:padding="10dp"
+        android:id="@+id/editEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="enter your email..."
+        android:inputType="textEmailAddress"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:fontFamily="casual"
+        android:padding="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/editPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="enter your password..."
+        android:inputType="textPassword"
+        android:layout_below="@+id/editEmail"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:textColor="@color/colorPutih"
+        android:background="@drawable/btn_rounded"
+        android:id="@+id/btnLogin"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Log In"
+        android:layout_below="@+id/editPassword"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_alignEnd="@+id/editPassword"
+        android:layout_alignStart="@+id/editPassword" />
+
+</RelativeLayout>

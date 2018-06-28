@@ -15,6 +15,8 @@
         android:layout_height="match_parent">
 
         <ToggleButton
+            android:fontFamily="casual"
+            android:textAllCaps="false"
             android:id="@+id/btnAppsGpss"
             android:background="@drawable/btn_rounded"
             android:textColor="@color/colorTulisan"
@@ -26,6 +28,8 @@
             android:layout_height="wrap_content" />
 
         <ToggleButton
+            android:fontFamily="casual"
+            android:textAllCaps="false"
             android:id="@+id/btnAppsAlarm"
             android:background="@drawable/btn_rounded"
             android:textColor="@color/colorTulisan"
@@ -37,6 +41,8 @@
             android:layout_height="wrap_content" />
 
         <ToggleButton
+            android:fontFamily="casual"
+            android:textAllCaps="false"
             android:id="@+id/btnAppsLock"
             android:background="@drawable/btn_rounded"
             android:textColor="@color/colorTulisan"
@@ -48,6 +54,8 @@
             android:layout_height="wrap_content" />
 
         <ToggleButton
+            android:fontFamily="casual"
+            android:textAllCaps="false"
             android:id="@+id/btnAppsLights"
             android:background="@drawable/btn_rounded"
             android:textColor="@color/colorTulisan"
@@ -59,6 +67,8 @@
             android:layout_height="wrap_content" />
 
         <ToggleButton
+            android:fontFamily="casual"
+            android:textAllCaps="false"
             android:id="@+id/btnAppsEngine"
             android:background="@drawable/btn_rounded"
             android:textColor="@color/colorTulisan"
@@ -70,6 +80,8 @@
             android:layout_height="wrap_content" />
 
         <Button
+            android:fontFamily="casual"
+            android:textAllCaps="false"
             android:id="@+id/btnStartEngine"
             android:background="@drawable/btn_rounded"
             android:textColor="@color/colorTulisan"
@@ -81,6 +93,8 @@
             android:layout_height="wrap_content" />
 
         <Button
+            android:fontFamily="casual"
+            android:textAllCaps="false"
             android:id="@+id/btnAppsMap"
             android:background="@drawable/btn_rounded"
             android:textColor="@color/colorTulisan"
@@ -92,6 +106,8 @@
             android:layout_height="wrap_content" />
 
         <Button
+            android:fontFamily="casual"
+            android:textAllCaps="false"
             android:id="@+id/btnAppsCamera"
             android:background="@drawable/btn_rounded"
             android:textColor="@color/colorTulisan"
@@ -103,6 +119,8 @@
             android:layout_height="wrap_content" />
 
         <Button
+            android:fontFamily="casual"
+            android:textAllCaps="false"
             android:id="@+id/btnAppsDriver"
             android:background="@drawable/btn_rounded"
             android:textColor="@color/colorTulisan"

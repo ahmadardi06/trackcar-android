@@ -4,6 +4,7 @@ import com.ansyah.ardi.trackcar.Model.DriverModel;
 import com.ansyah.ardi.trackcar.Model.LocationModel;
 import com.ansyah.ardi.trackcar.Model.LogsModel;
 import com.ansyah.ardi.trackcar.Model.RelayModel;
+import com.ansyah.ardi.trackcar.Model.UserLoginModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,5 +37,9 @@ public interface ApiService {
     @FormUrlEncoded
     @PUT("api/mobil/token/{idmobil}")
     Call<String> setTokenMobil(@Field("tokenFirebase") String token, @Path("idmobil") String idmobil);
+
+    @FormUrlEncoded
+    @POST("api/mobil/user/login")
+    Call<UserLoginModel> setUserLogin(@Field("email") String email, @Field("password") String password);
 
 }

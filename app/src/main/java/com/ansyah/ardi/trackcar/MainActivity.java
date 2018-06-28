@@ -1,15 +1,19 @@
 package com.ansyah.ardi.trackcar;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -24,10 +28,12 @@ import com.github.nkzawa.socketio.client.Socket;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
+import java.util.StringTokenizer;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,9 +46,12 @@ public class MainActivity extends AppCompatActivity {
     ToggleButton btnLocking, btnLights;
     ImageView imgRespon;
     ImageButton btnAppsKiri, btnAppsKanan;
+    TextView txtIdMobilDanToken;
+    Button btnLogoutMain, btnEnineMain;
 
-    public static final String PREF_USER_FIRST_TIME = "user_first_time";
-    boolean isUserFirstTime;
+    public static final String PREF_USER_ID_MOBIL = "user_id_mobil";
+    String isIdMobil;
+
     String[] colors = {"#96CC7A", "#EA705D", "#66BBCC"};
 
     private Socket mSocket;
@@ -63,13 +72,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        isUserFirstTime = Boolean.valueOf(Utils.readSharedSetting(MainActivity.this, PREF_USER_FIRST_TIME, "true"));
+        isIdMobil = String.valueOf(Utils.readSharedSetting(MainActivity.this, PREF_USER_ID_MOBIL, ""));
 
-        Intent introIntent = new Intent(MainActivity.this, PagerActivity.class);
-        introIntent.putExtra(PREF_USER_FIRST_TIME, isUserFirstTime);
+        Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+        loginIntent.putExtra(PREF_USER_ID_MOBIL, isIdMobil);
 
-        if (isUserFirstTime)
-            startActivity(introIntent);
+        if(isIdMobil.isEmpty())
+            startActivity(loginIntent);
 
         setContentView(R.layout.activity_main);
 
@@ -79,6 +88,10 @@ public class MainActivity extends AppCompatActivity {
         mSocket.on("statuslampu", onStatusLampu);
         mSocket.on("statusdoor", onStatusDoor);
         mSocket.connect();
+
+//        txtIdMobilDanToken = (TextView) findViewById(R.id.txtIdMobilDanToken);
+//        String idnya = String.valueOf(Utils.readSharedSetting(MainActivity.this, PREF_USER_ID_MOBIL, ""));
+//        txtIdMobilDanToken.setText(idnya);
 
         Retrofit retro = new Retrofit.Builder().baseUrl(Aplikasi.URL_HOST)
                 .addConverterFactory(GsonConverterFactory.create()).build();
@@ -111,6 +124,35 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<RelayModel> call, Throwable t) {
 
+            }
+        });
+
+        btnLogoutMain = (Button) findViewById(R.id.btnLogoutMain);
+        btnLogoutMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("Confirmation");
+                builder.setMessage("Do you really want to logout?");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        Toast.makeText(MainActivity.this, "YES", Toast.LENGTH_LONG).show();
+                        Utils.saveSharedSetting(MainActivity.this, PREF_USER_ID_MOBIL, "");
+                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                        finish();
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener(){
+                   @Override
+                    public void onClick(DialogInterface dialogInterface, int i){
+//                       Toast.makeText(MainActivity.this, "NO", Toast.LENGTH_LONG).show();
+                       dialogInterface.dismiss();
+                   }
+                });
+
+                AlertDialog d = builder.create();
+                d.show();
             }
         });
 
