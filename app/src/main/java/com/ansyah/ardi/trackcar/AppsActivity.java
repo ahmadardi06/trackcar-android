@@ -99,7 +99,8 @@ public class AppsActivity extends AppCompatActivity {
         btnAppsMaps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(AppsActivity.this, MapsActivity.class));
+//                startActivity(new Intent(AppsActivity.this, MapsActivity.class));
+                startActivity(new Intent(AppsActivity.this, KoordinatActivity.class));
             }
         });
 

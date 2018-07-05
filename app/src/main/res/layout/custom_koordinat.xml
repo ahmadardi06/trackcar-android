@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" android:padding="5dp"
+    android:clickable="true" android:focusable="true"
+    android:background="@color/colorBackground" >
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_gps_hijau"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:drawableTop="@drawable/ic_map_hijau"
+        android:textColor="@color/colorHijau"
+        android:background="@drawable/button_style"
+        android:id="@+id/btnKoordinatMaps"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:text="map"
+        android:textAllCaps="false"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:paddingTop="5dp"
+        android:textColor="@color/colorPutih"
+        android:fontFamily="serif"
+        android:textSize="11dp"
+        android:id="@+id/txtKoordinatTanggal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/imageView"
+        android:text="Tanggal" />
+
+    <TextView
+        android:textColor="@color/colorPutih"
+        android:fontFamily="serif"
+        android:textSize="9dp"
+        android:id="@+id/txtKoordinatLatitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtKoordinatTanggal"
+        android:layout_toEndOf="@+id/imageView"
+        android:text="Latitude" />
+
+    <TextView
+        android:textColor="@color/colorPutih"
+        android:fontFamily="serif"
+        android:textSize="9dp"
+        android:id="@+id/txtKoordinatLongitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Longitude"
+        android:layout_below="@+id/txtKoordinatLatitude"
+        android:layout_toEndOf="@+id/imageView" />
+
+</RelativeLayout>
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:orientation="vertical" android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content" android:padding="10dp"-->
+    <!--android:clickable="true" android:focusable="true"-->
+    <!--android:background="@color/colorBackground">-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/txtKoordinatTanggal"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textAlignment="center"-->
+        <!--android:fontFamily="serif"-->
+        <!--android:text="Keterangan"-->
+        <!--android:textColor="@color/colorPutih"-->
+        <!--android:textSize="12dp" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/txtKoordinatLatitude"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textAlignment="center"-->
+        <!--android:fontFamily="serif"-->
+        <!--android:text="Keterangan"-->
+        <!--android:textColor="@color/colorPutih"-->
+        <!--android:textSize="12dp" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/txtKoordinatLongitude"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textAlignment="center"-->
+        <!--android:fontFamily="serif"-->
+        <!--android:text="Keterangan"-->
+        <!--android:textColor="@color/colorPutih"-->
+        <!--android:textSize="12dp" />-->
+
+<!--</LinearLayout>-->

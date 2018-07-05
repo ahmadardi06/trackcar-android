@@ -33,4 +33,11 @@
     <color name="cyan_50">#E0F7FA</color>
     <color name="amber_50">#FFF8E1</color>
     <color name="purple_50">#F3E5F5</color>
+
+    <item name="gnfrBlueColor" type="color">#2A3748</item>
+    <item name="semiTransparentGnfrBlueColor" type="color">#602A3748</item>
+    <integer-array name="androidcolors">
+        <item>@color/gnfrBlueColor</item>
+        <item>@color/semiTransparentGnfrBlueColor</item>
+    </integer-array>
 </resources>

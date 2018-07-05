@@ -33,48 +33,48 @@
 
         <ToggleButton
             android:id="@+id/btnLocking"
-            android:background="@drawable/btn_rounded"
+            android:background="@drawable/button_style"
             android:layout_margin="2.5dp"
             android:textColor="@color/colorTulisan"
             android:drawableTop="@drawable/ic_lock_buka_hitam"
             android:textOff="Lock"
             android:layout_width="75dp"
-            android:fontFamily="casual"
+            android:fontFamily="serif"
             android:textAllCaps="false"
             android:layout_height="wrap_content" />
 
         <ToggleButton
             android:id="@+id/btnLights"
-            android:background="@drawable/btn_rounded"
+            android:background="@drawable/button_style"
             android:layout_margin="2.5dp"
             android:textColor="@color/colorTulisan"
             android:drawableTop="@drawable/ic_lamp_hitam"
             android:textOff="Light"
             android:textAllCaps="false"
-            android:fontFamily="casual"
+            android:fontFamily="serif"
             android:layout_width="75dp"
             android:layout_height="wrap_content" />
 
         <ToggleButton
             android:id="@+id/btnEngineMain"
-            android:background="@drawable/btn_rounded"
+            android:background="@drawable/button_style"
             android:layout_margin="2.5dp"
             android:textColor="@color/colorTulisan"
             android:drawableTop="@drawable/ic_power_hitam"
             android:textOff="Power"
-            android:fontFamily="casual"
+            android:fontFamily="serif"
             android:textAllCaps="false"
             android:layout_width="75dp"
             android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/btnLogoutMain"
-            android:background="@drawable/btn_rounded"
+            android:background="@drawable/button_style"
             android:layout_margin="2.5dp"
             android:textColor="@color/colorHijau"
             android:drawableTop="@drawable/ic_logout_hijau"
             android:text="Logout"
-            android:fontFamily="casual"
+            android:fontFamily="serif"
             android:textAllCaps="false"
             android:layout_width="75dp"
             android:layout_height="wrap_content" />

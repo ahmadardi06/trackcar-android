@@ -10,7 +10,7 @@
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="wrap_content"-->
         <!--android:textAlignment="center"-->
-        <!--android:fontFamily="casual"-->
+        <!--android:fontFamily="serif"-->
         <!--android:text="Keterangan"-->
         <!--android:textColor="@color/colorPutih"-->
         <!--android:textSize="12dp" />-->
@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:fontFamily="casual"
+        android:fontFamily="serif"
         android:text="Keterangan"
         android:textColor="@color/colorPutih"
         android:textSize="12dp" />

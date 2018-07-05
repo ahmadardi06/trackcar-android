@@ -6,7 +6,7 @@
     android:background="@color/colorBackground">
 
     <TextView
-        android:fontFamily="casual"
+        android:fontFamily="serif"
         android:id="@+id/txtJenisLogs"
         android:textColor="@color/colorPutih"
         android:text="Title"
@@ -16,7 +16,7 @@
         android:layout_height="wrap_content" />
 
     <TextView
-        android:fontFamily="casual"
+        android:fontFamily="serif"
         android:id="@+id/txtKeteranganLogs"
         android:textColor="@color/colorPutih"
         android:text="Keterangan"
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content" />
 
     <TextView
-        android:fontFamily="casual"
+        android:fontFamily="serif"
         android:id="@+id/txtTanggal"
         android:textColor="@color/colorPutih"
         android:text="Keterangan"

@@ -45,7 +45,6 @@ public class DriversAdapter extends RecyclerView.Adapter<DriversAdapter.MyViewHo
         DriversObjek driversModel = driversData.get(position);
 //        holder._id.setText(driversModel.get_id());
         holder.tanggal.setText(DateParser.parseDateToDayDateMonthYear(driversModel.getTanggal()));
-//        holder.gambar.setImageBitmap();
         new ImageLoaderClass(holder.gambar).execute(driversModel.getFullGambar());
     }
 
