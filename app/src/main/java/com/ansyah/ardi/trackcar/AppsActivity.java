@@ -1,11 +1,12 @@
 package com.ansyah.ardi.trackcar;
 
-import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,7 +21,7 @@ import android.widget.ToggleButton;
 
 import com.ansyah.ardi.trackcar.Api.ApiService;
 import com.ansyah.ardi.trackcar.Config.Aplikasi;
-import com.ansyah.ardi.trackcar.Model.DriverModel;
+import com.ansyah.ardi.trackcar.Config.Utils;
 import com.ansyah.ardi.trackcar.Model.RelayModel;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
@@ -36,7 +37,6 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,32 +44,35 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.ansyah.ardi.trackcar.MainActivity.PREF_USER_ID_MOBIL;
+
 public class AppsActivity extends AppCompatActivity {
 
     final Context context = this;
     Bitmap imageBitmap;
 
     ImageView imgAppsRespon, imgAppsDriver;
-    ToggleButton btnGps, btnAlarm, btnLock, btnLights, btnEngine;
-    Button btnCamera, btnMaps, btnDriver, btnStartEngine;
-    TextView txtDrivers;
+    ToggleButton btnAppsGps, btnAppsAlarm, btnAppsLock, btnAppsLights, btnAppsEngine;
+    Button btnAppsMaps, btnAppsCamera, btnAppsDriver, btnStartEngine;
+    String isIdMobil;
 
     private Socket mSocket;
-    {
-        try {
-            IO.Options opts = new IO.Options();
-            opts.forceNew = true;
-            opts.query = "idMobil=" + Aplikasi.ID_MOBIL;
-            mSocket = IO.socket(Aplikasi.URL_HOST, opts);
-        }catch (URISyntaxException e){
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apps);
-        setTitle("Remote Your Car");
+        setTitle("Remote the Car");
+
+        isIdMobil = String.valueOf(Utils.readSharedSetting(this, PREF_USER_ID_MOBIL, ""));
+        Log.d("idMobil", isIdMobil);
+
+        try {
+            IO.Options opts = new IO.Options();
+            opts.forceNew = true;
+            opts.query = "idMobil=" + isIdMobil;
+            mSocket = IO.socket(Aplikasi.URL_HOST, opts);
+        }catch (URISyntaxException e){}
 
         mSocket.on("statuslampu", onStatusLampu);
         mSocket.on("statusengine", onStatusengine);
@@ -79,48 +82,86 @@ public class AppsActivity extends AppCompatActivity {
         mSocket.on("takefoto", onTakeFoto);
         mSocket.connect();
 
+        btnAppsGps          = (ToggleButton) findViewById(R.id.btnAppsGpss);
+        btnAppsAlarm        = (ToggleButton) findViewById(R.id.btnAppsAlarm);
+        btnAppsLock         = (ToggleButton) findViewById(R.id.btnAppsLock);
+        btnAppsLights       = (ToggleButton) findViewById(R.id.btnAppsLights);
+        btnAppsEngine       = (ToggleButton) findViewById(R.id.btnAppsEngine);
+        btnStartEngine      = (Button) findViewById(R.id.btnStartEngine);
+        btnAppsMaps         = (Button) findViewById(R.id.btnAppsMap);
+        btnAppsCamera       = (Button) findViewById(R.id.btnAppsCamera);
+        btnAppsDriver       = (Button) findViewById(R.id.btnAppsDriver);
+
+        cekRelayStatus();
+
+        btnStartEngine.setOnTouchListener(oStartEngine);
+
+        btnAppsMaps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AppsActivity.this, MapsActivity.class));
+            }
+        });
+
+        btnAppsCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showKonfirmasiButton("Are you sure to take picture?", btnAppsCamera);
+            }
+        });
+
+
+        btnAppsDriver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AppsActivity.this, DriverActivity.class));
+            }
+        });
+
+    }
+
+    private void cekRelayStatus() {
         Retrofit retro = new Retrofit.Builder().baseUrl(Aplikasi.URL_HOST)
                 .addConverterFactory(GsonConverterFactory.create()).build();
         ApiService service = retro.create(ApiService.class);
-        Call<RelayModel> call = service.getRelay(Aplikasi.ID_MOBIL);
+        Call<RelayModel> call = service.getRelay(isIdMobil);
         call.enqueue(new Callback<RelayModel>() {
             @Override
             public void onResponse(Call<RelayModel> call, Response<RelayModel> response) {
                 if(response.isSuccessful()){
-                    btnLock = (ToggleButton) findViewById(R.id.btnAppsLock);
+                    btnAppsLock = (ToggleButton) findViewById(R.id.btnAppsLock);
                     if(response.body().getDoor()){
-                        btnLock.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_lock_outline_hijau), null, null);
-                        btnLock.setTextColor(getResources().getColor(R.color.colorHijau));
+                        setOnOffToggle(btnAppsLock, R.drawable.ic_lock_tutup_hijau, R.color.colorHijau, true, "Lock");
                     }else{
-                        btnLock.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_lock_open_black_24dp), null, null);
-                        btnLock.setTextColor(getResources().getColor(R.color.colorTulisan));
+                        setOnOffToggle(btnAppsLock, R.drawable.ic_lock_buka_hitam, R.color.colorTulisan, false, "Lock");
                     }
 
-                    btnLights = (ToggleButton) findViewById(R.id.btnAppsLights);
+                    btnAppsLights = (ToggleButton) findViewById(R.id.btnAppsLights);
                     if(response.body().getLamp()){
-                        btnLights.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_lamp_on), null, null);
-                        btnLights.setTextColor(getResources().getColor(R.color.colorHijau));
+                        setOnOffToggle(btnAppsLights, R.drawable.ic_lamp_hijau, R.color.colorHijau, true, "Light");
                     }else{
-                        btnLights.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_lamp_black_24dp), null, null);
-                        btnLights.setTextColor(getResources().getColor(R.color.colorTulisan));
+                        setOnOffToggle(btnAppsLights, R.drawable.ic_lamp_hitam, R.color.colorTulisan, false, "Light");
                     }
 
-                    btnEngine = (ToggleButton) findViewById(R.id.btnAppsEngine);
+                    btnAppsEngine = (ToggleButton) findViewById(R.id.btnAppsEngine);
                     if(response.body().getEngine()){
-                        btnEngine.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_flash_on_hijau), null, null);
-                        btnEngine.setTextColor(getResources().getColor(R.color.colorHijau));
+                        setOnOffToggle(btnAppsEngine, R.drawable.ic_power_hijau, R.color.colorHijau, true, "Power");
                     }else{
-                        btnEngine.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_flash_on_black_24dp), null, null);
-                        btnEngine.setTextColor(getResources().getColor(R.color.colorTulisan));
+                        setOnOffToggle(btnAppsEngine, R.drawable.ic_power_hitam, R.color.colorTulisan, false, "Power");
                     }
 
-                    btnAlarm = (ToggleButton) findViewById(R.id.btnAppsAlarm);
+                    btnAppsAlarm = (ToggleButton) findViewById(R.id.btnAppsAlarm);
                     if(response.body().getAlarm()){
-                        btnAlarm.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_access_alarm_hijau), null, null);
-                        btnAlarm.setTextColor(getResources().getColor(R.color.colorHijau));
+                        setOnOffToggle(btnAppsAlarm, R.drawable.ic_alarm_hijau, R.color.colorHijau, true, "Alarm");
                     }else{
-                        btnAlarm.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_access_alarm_black_24dp), null, null);
-                        btnAlarm.setTextColor(getResources().getColor(R.color.colorTulisan));
+                        setOnOffToggle(btnAppsAlarm, R.drawable.ic_alarm_hitam, R.color.colorTulisan, false, "Alarm");
+                    }
+
+                    btnAppsGps = (ToggleButton) findViewById(R.id.btnAppsGpss);
+                    if(response.body().getGps()){
+                        setOnOffToggle(btnAppsGps, R.drawable.ic_gps_hijau, R.color.colorHijau, true, "GPS");
+                    }else{
+                        setOnOffToggle(btnAppsGps, R.drawable.ic_gps_hitam, R.color.colorTulisan, false, "GPS");
                     }
                 }
             }
@@ -130,243 +171,134 @@ public class AppsActivity extends AppCompatActivity {
 
             }
         });
+    }
 
-        btnLights = (ToggleButton) findViewById(R.id.btnAppsLights);
-        btnLights.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+    private void setOnOffToggle(final ToggleButton tg, int draw, int warna, Boolean b, String label) {
+        tg.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(draw), null, null);
+        tg.setTextColor(getResources().getColor(warna));
+        tg.setChecked(b);
+        tg.setTextOn(label);
+
+        tg.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
-                    JSONObject obj1 = new JSONObject();
-                    try {
-                        obj1.put("msg", true);
-                        obj1.put("idmobil", Aplikasi.ID_MOBIL);
-                    }catch (JSONException e) {
-                        return;
-                    }
-                    btnLights.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_lamp_on), null, null);
-                    btnLights.setTextColor(getResources().getColor(R.color.colorHijau));
-                    mSocket.emit("statuslampu", obj1);
-                }
-                else{
-                    JSONObject obj1 = new JSONObject();
-                    try {
-                        obj1.put("msg", false);
-                        obj1.put("idmobil", Aplikasi.ID_MOBIL);
-                    }catch (JSONException e) {
-                        return;
-                    }
-                    btnLights.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_lamp_black_24dp), null, null);
-                    btnLights.setTextColor(getResources().getColor(R.color.colorTulisan));
-                    mSocket.emit("statuslampu", obj1);
+                showKonfirmasiToggle("Are you sure ?", tg, b);
+            }
+        });
+    }
+
+    private void showKonfirmasiButton(String message, final Button btn) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(AppsActivity.this);
+        builder.setTitle("Confirmation");
+        builder.setMessage(message);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                switch (btn.getId()) {
+                    case R.id.btnAppsCamera:
+                        String sekarang = new SimpleDateFormat("ddMMyyyy-HH-mm").format(Calendar.getInstance().getTime());
+                        JSONObject objek = new JSONObject();
+                        try{
+                            objek.put("msg", "takefoto"+sekarang);
+                            objek.put("idmobil", isIdMobil);
+                        }catch (JSONException e){
+                            return;
+                        }
+                        btnAppsCamera.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_camera_hijau), null,null);
+                        btnAppsCamera.setTextColor(getResources().getColor(R.color.colorHijau));
+                        mSocket.emit("takefoto", objek);
+                        Toast.makeText(AppsActivity.this, "Take Picture Successfully.", Toast.LENGTH_LONG).show();
+                        break;
+
                 }
             }
         });
-
-        btnEngine = (ToggleButton) findViewById(R.id.btnAppsEngine);
-        btnEngine.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener(){
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
-                    JSONObject obj1 = new JSONObject();
-                    try {
-                        obj1.put("msg", true);
-                        obj1.put("idmobil", Aplikasi.ID_MOBIL);
-                    }catch (JSONException e) {
-                        return;
-                    }
-                    btnEngine.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_flash_on_hijau), null, null);
-                    btnEngine.setTextColor(getResources().getColor(R.color.colorHijau));
-                    mSocket.emit("statusengine", obj1);
-                }
-                else{
-                    JSONObject obj1 = new JSONObject();
-                    try {
-                        obj1.put("msg", false);
-                        obj1.put("idmobil", Aplikasi.ID_MOBIL);
-                    }catch (JSONException e) {
-                        return;
-                    }
-                    btnEngine.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_flash_on_black_24dp), null, null);
-                    btnEngine.setTextColor(getResources().getColor(R.color.colorTulisan));
-                    mSocket.emit("statusengine", obj1);
-                }
+            public void onClick(DialogInterface dialogInterface, int i){
+                dialogInterface.dismiss();
             }
         });
+        AlertDialog d = builder.create();
+        d.show();
+    }
 
-        btnStartEngine = (Button) findViewById(R.id.btnStartEngine);
-        btnStartEngine.setOnTouchListener(oStartEngine);
-
-        btnMaps = (Button) findViewById(R.id.btnAppsMap);
-        btnMaps.setOnClickListener(new View.OnClickListener() {
+    private void showKonfirmasiToggle(String msg, final ToggleButton tg, final Boolean b) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(AppsActivity.this);
+        builder.setTitle("Confirmation");
+        builder.setMessage(msg);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent ngint = new Intent(AppsActivity.this, MapsActivity.class);
-                startActivity(ngint);
-            }
-        });
-
-        btnLock = (ToggleButton) findViewById(R.id.btnAppsLock);
-        btnLock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
-                    JSONObject obj1 = new JSONObject();
-                    try {
-                        obj1.put("msg", true);
-                        obj1.put("idmobil", Aplikasi.ID_MOBIL);
-                    }catch (JSONException e) {
-                        return;
-                    }
-                    btnLock.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_lock_outline_hijau), null, null);
-                    btnLock.setTextColor(getResources().getColor(R.color.colorHijau));
-                    mSocket.emit("statusdoor", obj1);
-                }
-                else{
-                    JSONObject obj1 = new JSONObject();
-                    try {
-                        obj1.put("msg", false);
-                        obj1.put("idmobil", Aplikasi.ID_MOBIL);
-                    }catch (JSONException e) {
-                        return;
-                    }
-                    btnLock.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_lock_open_black_24dp), null, null);
-                    btnLock.setTextColor(getResources().getColor(R.color.colorTulisan));
-                    mSocket.emit("statusdoor", obj1);
-                }
-            }
-        });
-
-        btnAlarm = (ToggleButton) findViewById(R.id.btnAppsAlarm);
-        btnAlarm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
-                    JSONObject obj1 = new JSONObject();
-                    try {
-                        obj1.put("msg", true);
-                        obj1.put("idmobil", Aplikasi.ID_MOBIL);
-                    }catch (JSONException e) {
-                        return;
-                    }
-                    btnAlarm.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_access_alarm_hijau), null, null);
-                    btnAlarm.setTextColor(getResources().getColor(R.color.colorHijau));
-                    mSocket.emit("statusalarm", obj1);
-                }
-                else{
-                    JSONObject obj1 = new JSONObject();
-                    try {
-                        obj1.put("msg", false);
-                        obj1.put("idmobil", Aplikasi.ID_MOBIL);
-                    }catch (JSONException e) {
-                        return;
-                    }
-                    btnAlarm.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_access_alarm_black_24dp), null, null);
-                    btnAlarm.setTextColor(getResources().getColor(R.color.colorTulisan));
-                    mSocket.emit("statusalarm", obj1);
-                }
-            }
-        });
-
-        btnGps = (ToggleButton) findViewById(R.id.btnAppsGpss);
-        btnGps.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
-                    JSONObject obj1 = new JSONObject();
-                    try {
-                        obj1.put("msg", true);
-                        obj1.put("idmobil", Aplikasi.ID_MOBIL);
-                    }catch (JSONException e) {
-                        return;
-                    }
-                    btnGps.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_my_location_hijau), null, null);
-                    btnGps.setTextColor(getResources().getColor(R.color.colorHijau));
-                    mSocket.emit("statusgps", obj1);
-                }
-                else{
-                    JSONObject obj1 = new JSONObject();
-                    try {
-                        obj1.put("msg", false);
-                        obj1.put("idmobil", Aplikasi.ID_MOBIL);
-                    }catch (JSONException e) {
-                        return;
-                    }
-                    btnGps.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_my_location_black_24dp), null, null);
-                    btnGps.setTextColor(getResources().getColor(R.color.colorTulisan));
-                    mSocket.emit("statusgps", obj1);
-                }
-            }
-        });
-
-        btnCamera = (Button) findViewById(R.id.btnAppsCamera);
-        btnCamera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String sekarang = new SimpleDateFormat("ddMMyyyy-HH-mm").format(Calendar.getInstance().getTime());
-                JSONObject obj1 = new JSONObject();
-                try{
-                    obj1.put("msg", "takefoto"+sekarang);
-                    obj1.put("idmobil", Aplikasi.ID_MOBIL);
-                }catch (JSONException e){
-                    return;
-                }
-                btnCamera.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_linked_camera_hijau), null,null);
-                btnCamera.setTextColor(getResources().getColor(R.color.colorHijau));
-                mSocket.emit("takefoto", obj1);
-            }
-        });
-
-        btnDriver = (Button) findViewById(R.id.btnAppsDriver);
-        btnDriver.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Retrofit retro = new Retrofit.Builder().baseUrl(Aplikasi.URL_HOST)
-                        .addConverterFactory(GsonConverterFactory.create()).build();
-                ApiService service = retro.create(ApiService.class);
-                Call<List<DriverModel>> call = service.getDriver(Aplikasi.ID_MOBIL);
-                call.enqueue(new Callback<List<DriverModel>>() {
-                    @Override
-                    public void onResponse(Call<List<DriverModel>> call, Response<List<DriverModel>> response) {
-                        if(response.isSuccessful()) {
-
-                            List<DriverModel> dataDriver = response.body();
-
-                            final Dialog dialog = new Dialog(context);
-                            dialog.setContentView(R.layout.custom_driver);
-
-                            imgAppsDriver = (ImageView) dialog.findViewById(R.id.imageViewDrivers);
-                            txtDrivers = (TextView) dialog.findViewById(R.id.textViewDrivers);
-
-                            String urlFoto = dataDriver.get(dataDriver.size()-1).getGambarFull();
-                            new ImageLoaderClass().execute(urlFoto);
-
-                            txtDrivers.setText(dataDriver.get(dataDriver.size()-1).getTanggal());
-
-                            Button btnClose = (Button) dialog.findViewById(R.id.buttonCloseDialog);
-                            btnClose.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    dialog.dismiss();
-                                }
-                            });
-
-                            btnDriver.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_picture_in_picture_hijau), null, null);
-                            btnDriver.setTextColor(getResources().getColor(R.color.colorHijau));
-
-                            dialog.show();
+            public void onClick(DialogInterface dialogInterface, int i) {
+                switch (tg.getId()) {
+                    case R.id.btnAppsGpss:
+                        if(b){
+                            createJsonObjectToggle(btnAppsGps, true, R.drawable.ic_gps_hijau, R.color.colorHijau, "statusgps");
                         }
                         else{
-                            Log.d("onResponse", "Response Gagal");
+                            createJsonObjectToggle(btnAppsGps, false, R.drawable.ic_gps_hitam, R.color.colorTulisan, "statusgps");
                         }
-                    }
+                        break;
 
-                    @Override
-                    public void onFailure(Call<List<DriverModel>> call, Throwable t) {
+                    case R.id.btnAppsAlarm:
+                        if(b){
+                            createJsonObjectToggle(btnAppsAlarm, true, R.drawable.ic_alarm_hijau, R.color.colorHijau, "statusalarm");
+                        }
+                        else {
+                            createJsonObjectToggle(btnAppsAlarm, false, R.drawable.ic_alarm_hitam, R.color.colorTulisan, "statusalarm");
+                        }
+                        break;
 
-                    }
-                });
+                    case R.id.btnAppsLock:
+                        if(b){
+                            createJsonObjectToggle(btnAppsLock, true, R.drawable.ic_lock_tutup_hijau, R.color.colorHijau, "statusdoor");
+                        }
+                        else{
+                            createJsonObjectToggle(btnAppsLock, false, R.drawable.ic_lock_buka_hitam, R.color.colorTulisan, "statusdoor");
+                        }
+                        break;
+
+                    case R.id.btnAppsLights:
+                        if(b){
+                            createJsonObjectToggle(btnAppsLights, true, R.drawable.ic_lamp_hijau, R.color.colorHijau, "statuslampu");
+                        }
+                        else{
+                            createJsonObjectToggle(btnAppsLights, false, R.drawable.ic_lamp_hitam, R.color.colorTulisan, "statuslampu");
+                        }
+                        break;
+
+                    case R.id.btnAppsEngine:
+                        if(b){
+                            createJsonObjectToggle(btnAppsEngine, true, R.drawable.ic_power_hijau, R.color.colorHijau, "statusengine");
+                        }
+                        else{
+                            createJsonObjectToggle(btnAppsEngine, false, R.drawable.ic_power_hitam, R.color.colorTulisan, "statusengine");
+                        }
+                        break;
+                }
             }
         });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i){
+                dialogInterface.dismiss();
+            }
+        });
+        AlertDialog d = builder.create();
+        d.show();
+    }
+
+    private void createJsonObjectToggle(ToggleButton tg, Boolean b, int drawable, int color, String event) {
+        JSONObject objek = new JSONObject();
+        try {
+            objek.put("msg", b);
+            objek.put("idmobil", isIdMobil);
+        }catch (JSONException e) {
+            return;
+        }
+        tg.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(drawable), null, null);
+        tg.setTextColor(getResources().getColor(color));
+        mSocket.emit(event, objek);
     }
 
     private class ImageLoaderClass extends AsyncTask<String, String, Bitmap>{
@@ -550,15 +482,14 @@ public class AppsActivity extends AppCompatActivity {
         public boolean onTouch(View view, MotionEvent motionEvent) {
             int aksi = motionEvent.getAction();
             if(aksi == MotionEvent.ACTION_DOWN){
-//                Log.w("PRESS DOWN", String.valueOf(aksi));
-                if (!btnEngine.isChecked()) {
-                    Toast.makeText(getApplicationContext(), "Engine still OFF, turn ON the Engine!.", Toast.LENGTH_LONG).show();
+                if (!btnAppsAlarm.isChecked()) {
+                    Toast.makeText(getApplicationContext(), "Engine still OFF, turn ON the Power!.", Toast.LENGTH_LONG).show();
                 }
                 else {
                     JSONObject obj1 = new JSONObject();
                     try {
                         obj1.put("msg", true);
-                        obj1.put("idmobil", Aplikasi.ID_MOBIL);
+                        obj1.put("idmobil", isIdMobil);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -570,7 +501,7 @@ public class AppsActivity extends AppCompatActivity {
                 JSONObject obj1 = new JSONObject();
                 try {
                     obj1.put("msg", false);
-                    obj1.put("idmobil", Aplikasi.ID_MOBIL);
+                    obj1.put("idmobil", isIdMobil);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -585,6 +516,59 @@ public class AppsActivity extends AppCompatActivity {
         super.onDestroy();
 
         mSocket.disconnect();
+    }
+
+    private void backupCoding() {
+        //        btnDriver.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Retrofit retro = new Retrofit.Builder().baseUrl(Aplikasi.URL_HOST)
+//                        .addConverterFactory(GsonConverterFactory.create()).build();
+//                ApiService service = retro.create(ApiService.class);
+//                Call<List<DriverModel>> call = service.getDriver(isIdMobil);
+//                call.enqueue(new Callback<List<DriverModel>>() {
+//                    @Override
+//                    public void onResponse(Call<List<DriverModel>> call, Response<List<DriverModel>> response) {
+//                        if(response.isSuccessful()) {
+//
+//                            List<DriverModel> dataDriver = response.body();
+//
+//                            final Dialog dialog = new Dialog(context);
+//                            dialog.setContentView(R.layout.custom_driver);
+//
+//                            imgAppsDriver = (ImageView) dialog.findViewById(R.id.imageViewDrivers);
+//                            txtDrivers = (TextView) dialog.findViewById(R.id.textViewDrivers);
+//
+//                            String urlFoto = dataDriver.get(dataDriver.size()-1).getGambarFull();
+//                            new ImageLoaderClass().execute(urlFoto);
+//
+//                            txtDrivers.setText(dataDriver.get(dataDriver.size()-1).getTanggal());
+//
+//                            Button btnClose = (Button) dialog.findViewById(R.id.buttonCloseDialog);
+//                            btnClose.setOnClickListener(new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View view) {
+//                                    dialog.dismiss();
+//                                }
+//                            });
+//
+//                            btnDriver.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_driver_hijau), null, null);
+//                            btnDriver.setTextColor(getResources().getColor(R.color.colorHijau));
+//
+//                            dialog.show();
+//                        }
+//                        else{
+//                            Log.d("onResponse", "Response Gagal");
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<List<DriverModel>> call, Throwable t) {
+//
+//                    }
+//                });
+//            }
+//        });
     }
 
 }

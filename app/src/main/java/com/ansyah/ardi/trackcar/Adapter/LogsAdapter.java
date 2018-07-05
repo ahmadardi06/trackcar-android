@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.ansyah.ardi.trackcar.R.*;
-import static com.ansyah.ardi.trackcar.R.drawable.ic_lamp_on;
 
 /**
  * Created by ardi on 19/04/18.
@@ -37,7 +36,7 @@ public class LogsAdapter extends RecyclerView.Adapter<LogsAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         LogsModel logModel = logsData.get(position);
-        holder.jenis.setText(logModel.getLogs().getJenis());
+        holder.jenis.setText(logModel.getLogs().getJenis().toUpperCase());
         holder.keterangan.setText(logModel.getLogs().getKeterangan());
         holder.tanggal.setText(DateParser.parseDateToDayDateMonthYear(logModel.getLogs().getTanggal()));
         holder.gambar.setImageResource((Integer) gambare.get(position));

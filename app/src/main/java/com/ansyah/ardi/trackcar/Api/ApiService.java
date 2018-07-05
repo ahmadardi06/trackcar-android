@@ -1,6 +1,7 @@
 package com.ansyah.ardi.trackcar.Api;
 
 import com.ansyah.ardi.trackcar.Model.DriverModel;
+import com.ansyah.ardi.trackcar.Model.DriversModel;
 import com.ansyah.ardi.trackcar.Model.LocationModel;
 import com.ansyah.ardi.trackcar.Model.LogsModel;
 import com.ansyah.ardi.trackcar.Model.RelayModel;
@@ -24,6 +25,9 @@ import retrofit2.http.Path;
 public interface ApiService {
     @GET("api/mobil/driver/getone/{idmobil}")
     Call<List<DriverModel>> getDriver(@Path("idmobil") String idmobil);
+
+    @GET("api/mobil/driver/getall/{idmobil}")
+    Call<DriversModel> getDrivers(@Path("idmobil") String idmobil);
 
     @GET("api/mobil/relay/getone/{idmobil}")
     Call<RelayModel> getRelay(@Path("idmobil") String idmobil);

@@ -1,4 +1,4 @@
-package com.ansyah.ardi.trackcar;
+package com.ansyah.ardi.trackcar.Service;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -8,6 +8,8 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 
+import com.ansyah.ardi.trackcar.MainActivity;
+import com.ansyah.ardi.trackcar.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 

@@ -40,7 +40,7 @@
         android:id="@+id/gmbLogs"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
-        android:src="@drawable/ic_lamp_on"
+        android:src="@drawable/ic_lamp_hijau"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content" android:padding="10dp"
+    android:clickable="true" android:focusable="true"
+    android:background="@color/colorBackground">
+
+    <!--<TextView-->
+        <!--android:id="@+id/txtIdDriver"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textAlignment="center"-->
+        <!--android:fontFamily="casual"-->
+        <!--android:text="Keterangan"-->
+        <!--android:textColor="@color/colorPutih"-->
+        <!--android:textSize="12dp" />-->
+
+    <ImageView
+        android:src="@drawable/icon_speed_1"
+        android:id="@+id/txtGambarDriver"
+        android:paddingBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/txtTanggalDriver"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:fontFamily="casual"
+        android:text="Keterangan"
+        android:textColor="@color/colorPutih"
+        android:textSize="12dp" />
+
+</LinearLayout>

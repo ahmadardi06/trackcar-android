@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.ansyah.ardi.trackcar.Api.ApiService;
 import com.ansyah.ardi.trackcar.Config.Aplikasi;
+import com.ansyah.ardi.trackcar.Config.Utils;
 import com.ansyah.ardi.trackcar.Model.LocationModel;
 import com.ansyah.ardi.trackcar.Model.RelayModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -23,11 +24,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    String isIdMobil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        isIdMobil = String.valueOf(Utils.readSharedSetting(MapsActivity.this, MainActivity.PREF_USER_ID_MOBIL, ""));
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -51,16 +56,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Retrofit retro = new Retrofit.Builder().baseUrl(Aplikasi.URL_HOST)
                 .addConverterFactory(GsonConverterFactory.create()).build();
         ApiService service = retro.create(ApiService.class);
-        Call<LocationModel> call = service.getLocation(Aplikasi.ID_MOBIL);
+        Call<LocationModel> call = service.getLocation(isIdMobil);
         call.enqueue(new Callback<LocationModel>() {
             @Override
             public void onResponse(Call<LocationModel> call, Response<LocationModel> response) {
                 if(response.isSuccessful()){
                     // Add a marker in Sydney and move the camera
                     LatLng sydney = new LatLng(response.body().getLatitude(), response.body().getLongitude());
-                    mMap.addMarker(new MarkerOptions().position(sydney).title("Your Car Now"));
+                    mMap.addMarker(new MarkerOptions().position(sydney).title("Your Car"));
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-                    mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
+                    mMap.animateCamera(CameraUpdateFactory.zoomTo(13));
                 }
             }
 

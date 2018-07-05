@@ -3,18 +3,14 @@ package com.ansyah.ardi.trackcar;
 
 import android.animation.ArgbEvaluator;
 import android.app.Activity;
-import android.app.ActionBar;
-import android.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.media.Image;
 import android.support.design.widget.CoordinatorLayout;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.ColorUtils;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -30,10 +26,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ansyah.ardi.trackcar.Config.Utils;
-
-import okhttp3.internal.Util;
-
-import static com.ansyah.ardi.trackcar.R.drawable.ic_chevron_right_black_24dp;
 
 public class PagerActivity extends Activity {
 
@@ -77,7 +69,7 @@ public class PagerActivity extends Activity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         mNextBtn    = (ImageButton) findViewById(R.id.intro_btn_next);
-        mNextBtn.setImageDrawable(Utils.tintMyDrawable(ContextCompat.getDrawable(this, R.drawable.ic_chevron_right_black_24dp), Color.WHITE));
+        mNextBtn.setImageDrawable(Utils.tintMyDrawable(ContextCompat.getDrawable(this, R.drawable.ic_kanan_putih), Color.WHITE));
 
         mSkipBtn    = (Button) findViewById(R.id.intro_btn_skip);
         mFinishBtn  =  (Button) findViewById(R.id.intro_btn_finish);
@@ -263,7 +255,7 @@ public class PagerActivity extends Activity {
         public Fragment getItem(int position) {
             String[] title = new String[]{"track-CAR","Security","Locations"};
             String[] description = new String[]{"Application for remote your car.","Security for your car.","Check your car position."};
-            int[] gambar = new int[]{R.drawable.ic_flash_on_black_24dp, R.drawable.ic_lock_outline_black_24dp, R.drawable.ic_my_location_black_24dp};
+            int[] gambar = new int[]{R.drawable.ic_power_hitam, R.drawable.ic_lock_tutup_hitam, R.drawable.ic_gps_hitam};
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             return PlaceholderFragment.newInstance(title[position], description[position], gambar[position]);

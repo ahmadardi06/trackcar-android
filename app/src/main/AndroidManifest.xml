@@ -18,9 +18,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon_speed_1"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/icon_speed_1"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -53,26 +53,29 @@
             android:label="@string/title_activity_maps"
             android:parentActivityName=".AppsActivity" />
         <activity
-            android:name=".HistorylogsActivity"
+            android:name=".HistoryActivity"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".PagerActivity"
             android:label="@string/title_activity_pager" />
 
-        <service android:name=".MyFirebaseMessagingService">
+        <service android:name=".Service.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".MyFirebaseInstanceIdService">
+        <service android:name=".Service.MyFirebaseInstanceIdService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
-        <activity android:name=".LoginActivity"
-            android:theme="@style/SplashTheme"
-            android:noHistory="true" />
+        <activity
+            android:name=".LoginActivity"
+            android:noHistory="true"
+            android:theme="@style/SplashTheme" />
+        <activity android:name=".DriverActivity"
+            android:parentActivityName=".AppsActivity" />
     </application>
 
 </manifest>

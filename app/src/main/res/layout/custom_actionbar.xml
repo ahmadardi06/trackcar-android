@@ -20,7 +20,7 @@
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:background="@android:color/transparent"
-        android:src="@drawable/ic_apps_black_24dp"/>
+        android:src="@drawable/ic_apps_putih"/>
 
     <ImageButton
         android:id="@+id/btnAppKanan"
@@ -29,6 +29,6 @@
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:background="@android:color/transparent"
-        android:src="@drawable/ic_history_white"/>
+        android:src="@drawable/ic_history_putih"/>
 
 </RelativeLayout>
