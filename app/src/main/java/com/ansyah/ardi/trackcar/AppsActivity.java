@@ -51,7 +51,7 @@ public class AppsActivity extends AppCompatActivity {
     Bitmap imageBitmap;
     ImageView imgAppsRespon, imgAppsDriver;
     ToggleButton btnAppsGps, btnAppsLock, btnAppsLights, btnAppsEngine;
-    Button btnAppsMaps, btnAppsCamera, btnAppsDriver, btnStartEngine;
+    Button btnAppsMaps, btnAppsCamera, btnAppsDriver, btnStartEngine, btnAppsMapRealtime;
     String isIdMobil;
 
     private Socket mSocket;
@@ -88,6 +88,7 @@ public class AppsActivity extends AppCompatActivity {
         btnAppsMaps         = (Button) findViewById(R.id.btnAppsMap);
         btnAppsCamera       = (Button) findViewById(R.id.btnAppsCamera);
         btnAppsDriver       = (Button) findViewById(R.id.btnAppsDriver);
+        btnAppsMapRealtime  = (Button) findViewById(R.id.btnAppsMapRealtime);
 
         cekRelayStatus();
 
@@ -96,7 +97,6 @@ public class AppsActivity extends AppCompatActivity {
         btnAppsMaps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                startActivity(new Intent(AppsActivity.this, MapsActivity.class));
                 startActivity(new Intent(AppsActivity.this, KoordinatActivity.class));
             }
         });
@@ -113,6 +113,13 @@ public class AppsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(AppsActivity.this, DriverActivity.class));
+            }
+        });
+
+        btnAppsMapRealtime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AppsActivity.this, MapRealtimeActivity.class));
             }
         });
 

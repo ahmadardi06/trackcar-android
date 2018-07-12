@@ -22,7 +22,7 @@
         android:fontFamily="serif"
         android:textColor="@color/colorHijau"
         android:textAlignment="center"
-        android:text="Car Connected"
+        android:text="connecting ..."
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

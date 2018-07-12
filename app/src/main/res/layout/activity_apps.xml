@@ -82,6 +82,19 @@
         <Button
             android:fontFamily="serif"
             android:textAllCaps="false"
+            android:id="@+id/btnAppsMapRealtime"
+            android:background="@drawable/button_style"
+            android:textColor="@color/colorHijau"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            android:text="Realtime"
+            android:drawableTop="@drawable/ic_realtime_hijau"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:fontFamily="serif"
+            android:textAllCaps="false"
             android:id="@+id/btnAppsMap"
             android:background="@drawable/button_style"
             android:textColor="@color/colorHijau"

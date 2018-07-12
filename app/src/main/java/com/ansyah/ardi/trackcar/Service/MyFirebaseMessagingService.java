@@ -1,5 +1,6 @@
 package com.ansyah.ardi.trackcar.Service;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -31,11 +32,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         Uri soundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.mipmap.ic_launcher_mobil)
                 .setContentTitle("Warning On Your Car")
+                .setDefaults(Notification.DEFAULT_ALL)
                 .setContentText(body)
                 .setAutoCancel(true)
-                .setSound(soundUri)
                 .setContentIntent(pendingIntent);
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

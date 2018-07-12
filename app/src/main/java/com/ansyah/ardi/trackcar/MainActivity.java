@@ -26,6 +26,7 @@ import com.github.nkzawa.socketio.client.Socket;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView imgRespon;
     ImageButton btnAppsKiri, btnAppsKanan;
     Button btnLogoutMain, btnInfoMain, btnCaptureMain;
+    TextView txtConnected;
 
     public static final String PREF_USER_ID_MOBIL = "user_id_mobil";
     public String isIdMobil;
@@ -76,11 +78,14 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setCustomView(R.layout.custom_actionbar);
 
         mSocket.on("statusgps", onStatusGps);
+        mSocket.on("broadcastMobil", onStatusConnection);
         mSocket.connect();
 
         btnGpsMain      = (ToggleButton) findViewById(R.id.btnGpsMain);
         btnCaptureMain  = (Button) findViewById(R.id.btnCaptureMain);
         btnInfoMain     = (Button) findViewById(R.id.btnInfoMain);
+
+        txtConnected = (TextView) findViewById(R.id.txtConnected);
 
         cekStatusRelay();
 
@@ -240,7 +245,10 @@ public class MainActivity extends AppCompatActivity {
         tg.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(draw), null, null);
         tg.setTextColor(getResources().getColor(warna));
         tg.setChecked(b);
-        tg.setTextOn(label);
+        if(b)
+            tg.setTextOn(label);
+        else
+            tg.setTextOff(label);
 
         tg.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -264,6 +272,31 @@ public class MainActivity extends AppCompatActivity {
                         return;
                     }
                     Log.d("status gps", msg);
+                }
+            });
+        }
+    };
+
+    private Emitter.Listener onStatusConnection = new Emitter.Listener() {
+        @Override
+        public void call(final Object... args) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject data = (JSONObject) args[0];
+                    String msg;
+                    try {
+                        msg = data.getString("msg");
+                    } catch (JSONException e) {
+                        return;
+                    }
+
+                    if(!msg.isEmpty()) {
+                        txtConnected.setText(msg);
+                    }
+                    else{
+                        txtConnected.setText("connecting ...");
+                    }
                 }
             });
         }

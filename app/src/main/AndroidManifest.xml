@@ -43,7 +43,7 @@
         <activity
             android:name=".HistoryActivity"
             android:parentActivityName=".MainActivity"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".PagerActivity"
             android:label="@string/title_activity_pager" />
@@ -66,13 +66,18 @@
         <activity
             android:name=".DriverActivity"
             android:parentActivityName=".AppsActivity"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".KoordinatActivity"
-            android:parentActivityName=".AppsActivity" />
+            android:parentActivityName=".AppsActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".InfoActivity"
             android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".MapRealtimeActivity"
+            android:label="@string/title_activity_map_realtime"
+            android:parentActivityName=".AppsActivity"/>
     </application>
 
 </manifest>

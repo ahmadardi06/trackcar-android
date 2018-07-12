@@ -1,9 +1,210 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:orientation="vertical"
+    android:padding="5dp"
     tools:context="com.ansyah.ardi.trackcar.InfoActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/colorPutih"
+        android:fontFamily="serif"
+        android:textSize="20dp"
+        android:textAlignment="center"
+        android:text="Information the car"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TableLayout
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow>
+            <TextView
+                android:textColor="@color/colorPutih"
+                android:text="Police Number: "
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_column="1"/>
+
+            <TextView
+                android:id="@+id/txtInfoPoliceNumber"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/colorPutih"
+                android:text="... "
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:textColor="@color/colorPutih"
+                android:text="Owner: "
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_column="1"/>
+
+            <TextView
+                android:id="@+id/txtInfoOwner"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/colorPutih"
+                android:text="... "
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:textColor="@color/colorPutih"
+                android:text="Type of Vehicle: "
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_column="1"/>
+
+            <TextView
+                android:id="@+id/txtInfoTypeFfVehicle"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/colorPutih"
+                android:text="... "
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:textColor="@color/colorPutih"
+                android:text="Vehicle Brand: "
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_column="1"/>
+
+            <TextView
+                android:id="@+id/txtInfoVehicleBrand"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/colorPutih"
+                android:text="... "
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:textColor="@color/colorPutih"
+                android:text="Email Address: "
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_column="1"/>
+
+            <TextView
+                android:id="@+id/txtInfoEmailAddress"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/colorPutih"
+                android:text="... "
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent" />
+        </TableRow>
+
+    </TableLayout>
+
+    <TextView
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/colorPutih"
+        android:fontFamily="serif"
+        android:textSize="20dp"
+        android:textAlignment="center"
+        android:text="State of Relay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TableLayout
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow>
+            <TextView
+                android:textColor="@color/colorPutih"
+                android:text="Engine: "
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_column="1"/>
+
+            <TextView
+                android:id="@+id/txtInfoEngineMachine"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/colorPutih"
+                android:text="... "
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:textColor="@color/colorPutih"
+                android:text="Light: "
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_column="1"/>
+
+            <TextView
+                android:id="@+id/txtInfoLight"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/colorPutih"
+                android:text="... "
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:textColor="@color/colorPutih"
+                android:text="Horn: "
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_column="1"/>
+
+            <TextView
+                android:id="@+id/txtInfoHorn"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/colorPutih"
+                android:text="... "
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:textColor="@color/colorPutih"
+                android:text="GPS: "
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_column="1"/>
+
+            <TextView
+                android:id="@+id/txtInfoGps"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/colorPutih"
+                android:text="... "
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent" />
+        </TableRow>
+
+    </TableLayout>
+
+</LinearLayout>
