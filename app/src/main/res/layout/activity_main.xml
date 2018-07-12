@@ -16,13 +16,15 @@
         android:layout_height="450dp"
         android:layout_weight="1" />
 
-    <!--<TextView-->
-        <!--android:id="@+id/txtIdMobilDanToken"-->
-        <!--android:textAlignment="center"-->
-        <!--android:textColor="@color/colorPutih"-->
-        <!--android:text="adf"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content" />-->
+    <TextView
+        android:layout_marginBottom="10dp"
+        android:id="@+id/txtConnected"
+        android:fontFamily="serif"
+        android:textColor="@color/colorHijau"
+        android:textAlignment="center"
+        android:text="Car Connected"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_marginBottom="10dp"
@@ -32,36 +34,36 @@
         android:layout_height="wrap_content">
 
         <ToggleButton
-            android:id="@+id/btnLocking"
+            android:id="@+id/btnGpsMain"
             android:background="@drawable/button_style"
             android:layout_margin="2.5dp"
             android:textColor="@color/colorTulisan"
-            android:drawableTop="@drawable/ic_lock_buka_hitam"
-            android:textOff="Lock"
+            android:drawableTop="@drawable/ic_gps_hitam"
+            android:textOff="GPS"
             android:layout_width="75dp"
             android:fontFamily="serif"
             android:textAllCaps="false"
             android:layout_height="wrap_content" />
 
-        <ToggleButton
-            android:id="@+id/btnLights"
+        <Button
+            android:id="@+id/btnCaptureMain"
             android:background="@drawable/button_style"
             android:layout_margin="2.5dp"
-            android:textColor="@color/colorTulisan"
-            android:drawableTop="@drawable/ic_lamp_hitam"
-            android:textOff="Light"
+            android:textColor="@color/colorHijau"
+            android:drawableTop="@drawable/ic_camera_hijau"
+            android:text="Capture"
             android:textAllCaps="false"
             android:fontFamily="serif"
             android:layout_width="75dp"
             android:layout_height="wrap_content" />
 
-        <ToggleButton
-            android:id="@+id/btnEngineMain"
+        <Button
+            android:id="@+id/btnInfoMain"
             android:background="@drawable/button_style"
             android:layout_margin="2.5dp"
-            android:textColor="@color/colorTulisan"
-            android:drawableTop="@drawable/ic_power_hitam"
-            android:textOff="Power"
+            android:textColor="@color/colorHijau"
+            android:drawableTop="@drawable/ic_info_hijau"
+            android:text="Info"
             android:fontFamily="serif"
             android:textAllCaps="false"
             android:layout_width="75dp"

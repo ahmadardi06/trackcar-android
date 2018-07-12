@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:background="@color/colorBackground"
-tools:context="com.ansyah.ardi.trackcar.KoordinatActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackground"
+    tools:context="com.ansyah.ardi.trackcar.KoordinatActivity">
+
+    <EditText
+        android:background="@color/colorHijau"
+        android:fontFamily="serif"
+        android:padding="10dp"
+        android:id="@+id/editSearchKoordinat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="search ..."
+        android:layout_margin="5dp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerKoordinat"

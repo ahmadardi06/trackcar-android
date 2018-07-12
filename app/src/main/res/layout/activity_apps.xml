@@ -17,13 +17,13 @@
         <ToggleButton
             android:fontFamily="serif"
             android:textAllCaps="false"
-            android:id="@+id/btnAppsAlarm"
+            android:id="@+id/btnAppsLights"
             android:background="@drawable/button_style"
             android:textColor="@color/colorTulisan"
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="5dp"
-            android:textOff="Alarm"
-            android:drawableTop="@drawable/ic_alarm_hitam"
+            android:textOff="Lights"
+            android:drawableTop="@drawable/ic_lamp_hitam"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -35,21 +35,8 @@
             android:textColor="@color/colorTulisan"
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="5dp"
-            android:textOff="Lock"
-            android:drawableTop="@drawable/ic_lock_tutup_hitam"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <ToggleButton
-            android:fontFamily="serif"
-            android:textAllCaps="false"
-            android:id="@+id/btnAppsLights"
-            android:background="@drawable/button_style"
-            android:textColor="@color/colorTulisan"
-            android:layout_marginLeft="5dp"
-            android:layout_marginBottom="5dp"
-            android:textOff="Lights"
-            android:drawableTop="@drawable/ic_lamp_hitam"
+            android:textOff="Horn"
+            android:drawableTop="@drawable/ic_horn_hitam"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -113,7 +100,7 @@
             android:textColor="@color/colorHijau"
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="5dp"
-            android:text="Camera"
+            android:text="Capture"
             android:drawableTop="@drawable/ic_camera_hijau"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

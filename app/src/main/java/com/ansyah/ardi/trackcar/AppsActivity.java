@@ -48,11 +48,9 @@ import static com.ansyah.ardi.trackcar.MainActivity.PREF_USER_ID_MOBIL;
 
 public class AppsActivity extends AppCompatActivity {
 
-    final Context context = this;
     Bitmap imageBitmap;
-
     ImageView imgAppsRespon, imgAppsDriver;
-    ToggleButton btnAppsGps, btnAppsAlarm, btnAppsLock, btnAppsLights, btnAppsEngine;
+    ToggleButton btnAppsGps, btnAppsLock, btnAppsLights, btnAppsEngine;
     Button btnAppsMaps, btnAppsCamera, btnAppsDriver, btnStartEngine;
     String isIdMobil;
 
@@ -75,15 +73,14 @@ public class AppsActivity extends AppCompatActivity {
         }catch (URISyntaxException e){}
 
         mSocket.on("statuslampu", onStatusLampu);
-        mSocket.on("statusengine", onStatusengine);
         mSocket.on("statusdoor", onStatusDoor);
+        mSocket.on("statusengine", onStatusengine);
         mSocket.on("statusalarm", onStatusAlarm);
         mSocket.on("statusgps", onStatusGps);
         mSocket.on("takefoto", onTakeFoto);
         mSocket.connect();
 
         btnAppsGps          = (ToggleButton) findViewById(R.id.btnAppsGpss);
-        btnAppsAlarm        = (ToggleButton) findViewById(R.id.btnAppsAlarm);
         btnAppsLock         = (ToggleButton) findViewById(R.id.btnAppsLock);
         btnAppsLights       = (ToggleButton) findViewById(R.id.btnAppsLights);
         btnAppsEngine       = (ToggleButton) findViewById(R.id.btnAppsEngine);
@@ -130,32 +127,25 @@ public class AppsActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<RelayModel> call, Response<RelayModel> response) {
                 if(response.isSuccessful()){
-                    btnAppsLock = (ToggleButton) findViewById(R.id.btnAppsLock);
-                    if(response.body().getDoor()){
-                        setOnOffToggle(btnAppsLock, R.drawable.ic_lock_tutup_hijau, R.color.colorHijau, true, "Lock");
-                    }else{
-                        setOnOffToggle(btnAppsLock, R.drawable.ic_lock_buka_hitam, R.color.colorTulisan, false, "Lock");
-                    }
-
                     btnAppsLights = (ToggleButton) findViewById(R.id.btnAppsLights);
-                    if(response.body().getLamp()){
+                    if(!response.body().getLamp()){
                         setOnOffToggle(btnAppsLights, R.drawable.ic_lamp_hijau, R.color.colorHijau, true, "Light");
                     }else{
                         setOnOffToggle(btnAppsLights, R.drawable.ic_lamp_hitam, R.color.colorTulisan, false, "Light");
                     }
 
+                    btnAppsLock = (ToggleButton) findViewById(R.id.btnAppsLock);
+                    if(!response.body().getDoor()){
+                        setOnOffToggle(btnAppsLock, R.drawable.ic_horn_hijau, R.color.colorHijau, true, "Horn");
+                    }else{
+                        setOnOffToggle(btnAppsLock, R.drawable.ic_horn_hitam, R.color.colorTulisan, false, "Horn");
+                    }
+
                     btnAppsEngine = (ToggleButton) findViewById(R.id.btnAppsEngine);
-                    if(response.body().getEngine()){
+                    if(!response.body().getEngine()){
                         setOnOffToggle(btnAppsEngine, R.drawable.ic_power_hijau, R.color.colorHijau, true, "Power");
                     }else{
                         setOnOffToggle(btnAppsEngine, R.drawable.ic_power_hitam, R.color.colorTulisan, false, "Power");
-                    }
-
-                    btnAppsAlarm = (ToggleButton) findViewById(R.id.btnAppsAlarm);
-                    if(response.body().getAlarm()){
-                        setOnOffToggle(btnAppsAlarm, R.drawable.ic_alarm_hijau, R.color.colorHijau, true, "Alarm");
-                    }else{
-                        setOnOffToggle(btnAppsAlarm, R.drawable.ic_alarm_hitam, R.color.colorTulisan, false, "Alarm");
                     }
 
                     btnAppsGps = (ToggleButton) findViewById(R.id.btnAppsGpss);
@@ -178,7 +168,10 @@ public class AppsActivity extends AppCompatActivity {
         tg.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(draw), null, null);
         tg.setTextColor(getResources().getColor(warna));
         tg.setChecked(b);
-        tg.setTextOn(label);
+        if(b)
+            tg.setTextOn(label);
+        else
+            tg.setTextOff(label);
 
         tg.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -232,48 +225,39 @@ public class AppsActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 switch (tg.getId()) {
+                    case R.id.btnAppsLock:
+                        if(b){
+                            createJsonObjectToggle(btnAppsLock, false, R.drawable.ic_horn_hijau, R.color.colorHijau, "statusdoor");
+                        }
+                        else{
+                            createJsonObjectToggle(btnAppsLock, true, R.drawable.ic_horn_hitam, R.color.colorTulisan, "statusdoor");
+                        }
+                        break;
+
+                    case R.id.btnAppsLights:
+                        if(b){
+                            createJsonObjectToggle(btnAppsLights, false, R.drawable.ic_lamp_hijau, R.color.colorHijau, "statuslampu");
+                        }
+                        else{
+                            createJsonObjectToggle(btnAppsLights, true, R.drawable.ic_lamp_hitam, R.color.colorTulisan, "statuslampu");
+                        }
+                        break;
+
+                    case R.id.btnAppsEngine:
+                        if(b){
+                            createJsonObjectToggle(btnAppsEngine, false, R.drawable.ic_power_hijau, R.color.colorHijau, "statusengine");
+                        }
+                        else{
+                            createJsonObjectToggle(btnAppsEngine, true, R.drawable.ic_power_hitam, R.color.colorTulisan, "statusengine");
+                        }
+                        break;
+
                     case R.id.btnAppsGpss:
                         if(b){
                             createJsonObjectToggle(btnAppsGps, true, R.drawable.ic_gps_hijau, R.color.colorHijau, "statusgps");
                         }
                         else{
                             createJsonObjectToggle(btnAppsGps, false, R.drawable.ic_gps_hitam, R.color.colorTulisan, "statusgps");
-                        }
-                        break;
-
-                    case R.id.btnAppsAlarm:
-                        if(b){
-                            createJsonObjectToggle(btnAppsAlarm, true, R.drawable.ic_alarm_hijau, R.color.colorHijau, "statusalarm");
-                        }
-                        else {
-                            createJsonObjectToggle(btnAppsAlarm, false, R.drawable.ic_alarm_hitam, R.color.colorTulisan, "statusalarm");
-                        }
-                        break;
-
-                    case R.id.btnAppsLock:
-                        if(b){
-                            createJsonObjectToggle(btnAppsLock, true, R.drawable.ic_lock_tutup_hijau, R.color.colorHijau, "statusdoor");
-                        }
-                        else{
-                            createJsonObjectToggle(btnAppsLock, false, R.drawable.ic_lock_buka_hitam, R.color.colorTulisan, "statusdoor");
-                        }
-                        break;
-
-                    case R.id.btnAppsLights:
-                        if(b){
-                            createJsonObjectToggle(btnAppsLights, true, R.drawable.ic_lamp_hijau, R.color.colorHijau, "statuslampu");
-                        }
-                        else{
-                            createJsonObjectToggle(btnAppsLights, false, R.drawable.ic_lamp_hitam, R.color.colorTulisan, "statuslampu");
-                        }
-                        break;
-
-                    case R.id.btnAppsEngine:
-                        if(b){
-                            createJsonObjectToggle(btnAppsEngine, true, R.drawable.ic_power_hijau, R.color.colorHijau, "statusengine");
-                        }
-                        else{
-                            createJsonObjectToggle(btnAppsEngine, false, R.drawable.ic_power_hitam, R.color.colorTulisan, "statusengine");
                         }
                         break;
                 }
@@ -483,13 +467,13 @@ public class AppsActivity extends AppCompatActivity {
         public boolean onTouch(View view, MotionEvent motionEvent) {
             int aksi = motionEvent.getAction();
             if(aksi == MotionEvent.ACTION_DOWN){
-                if (!btnAppsAlarm.isChecked()) {
+                if (!btnAppsEngine.isChecked()) {
                     Toast.makeText(getApplicationContext(), "Engine still OFF, turn ON the Power!.", Toast.LENGTH_LONG).show();
                 }
                 else {
                     JSONObject obj1 = new JSONObject();
                     try {
-                        obj1.put("msg", true);
+                        obj1.put("msg", false);
                         obj1.put("idmobil", isIdMobil);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -501,7 +485,7 @@ public class AppsActivity extends AppCompatActivity {
                 Log.w("PRESS UP", String.valueOf(aksi));
                 JSONObject obj1 = new JSONObject();
                 try {
-                    obj1.put("msg", false);
+                    obj1.put("msg", true);
                     obj1.put("idmobil", isIdMobil);
                 } catch (JSONException e) {
                     e.printStackTrace();

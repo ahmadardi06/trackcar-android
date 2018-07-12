@@ -1,5 +1,6 @@
 package com.ansyah.ardi.trackcar.Adapter;
 
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -47,7 +48,7 @@ public class LogsAdapter extends RecyclerView.Adapter<LogsAdapter.MyViewHolder> 
         return logsData.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView jenis, keterangan, tanggal;
         public ImageView gambar;
 
@@ -64,4 +65,5 @@ public class LogsAdapter extends RecyclerView.Adapter<LogsAdapter.MyViewHolder> 
         this.logsData = logsModel;
         this.gambare = gambare;
     }
+
 }

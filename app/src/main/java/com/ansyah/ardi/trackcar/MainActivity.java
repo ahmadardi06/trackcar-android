@@ -13,6 +13,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.ansyah.ardi.trackcar.Api.ApiService;
@@ -27,6 +28,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,10 +39,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-    ToggleButton btnLocking, btnLights, btnEngineMain;;
+    ToggleButton btnGpsMain;
     ImageView imgRespon;
     ImageButton btnAppsKiri, btnAppsKanan;
-    Button btnLogoutMain;
+    Button btnLogoutMain, btnInfoMain, btnCaptureMain;
 
     public static final String PREF_USER_ID_MOBIL = "user_id_mobil";
     public String isIdMobil;
@@ -72,14 +75,12 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.custom_actionbar);
 
-        mSocket.on("statuslampu", onStatusLampu);
-        mSocket.on("statusdoor", onStatusDoor);
-        mSocket.on("statusengine", onStatusEngine);
+        mSocket.on("statusgps", onStatusGps);
         mSocket.connect();
 
-        btnLocking = (ToggleButton) findViewById(R.id.btnLocking);
-        btnLights = (ToggleButton) findViewById(R.id.btnLights);
-        btnEngineMain = (ToggleButton) findViewById(R.id.btnEngineMain);
+        btnGpsMain      = (ToggleButton) findViewById(R.id.btnGpsMain);
+        btnCaptureMain  = (Button) findViewById(R.id.btnCaptureMain);
+        btnInfoMain     = (Button) findViewById(R.id.btnInfoMain);
 
         cekStatusRelay();
 
@@ -88,6 +89,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 showKonfirmasiButton("Are you sure to logout?", btnLogoutMain);
+            }
+        });
+
+        btnCaptureMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showKonfirmasiButton("Are you sure to capture?", btnCaptureMain);
+            }
+        });
+
+        btnInfoMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, InfoActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -124,6 +140,21 @@ public class MainActivity extends AppCompatActivity {
                         finish();
                         break;
 
+                    case R.id.btnCaptureMain:
+                        String sekarang = new SimpleDateFormat("ddMMyyyy-HH-mm").format(Calendar.getInstance().getTime());
+                        JSONObject objek = new JSONObject();
+                        try{
+                            objek.put("msg", "takefoto"+sekarang);
+                            objek.put("idmobil", isIdMobil);
+                        }catch (JSONException e){
+                            return;
+                        }
+                        btnCaptureMain.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_camera_hijau), null,null);
+                        btnCaptureMain.setTextColor(getResources().getColor(R.color.colorHijau));
+                        mSocket.emit("takefoto", objek);
+                        Toast.makeText(MainActivity.this, "Take Picture Successfully.", Toast.LENGTH_LONG).show();
+                        break;
+
                 }
             }
         });
@@ -145,32 +176,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 switch (tg.getId()) {
-                    case R.id.btnLocking:
+                    case R.id.btnGpsMain:
                         if(b){
-                            createJsonObjectToggle(btnLocking, true, R.drawable.ic_lock_tutup_hijau, R.color.colorHijau, "statusdoor");
+                            createJsonObjectToggle(btnGpsMain, true, R.drawable.ic_gps_hijau, R.color.colorHijau, "statusgps");
                         }
                         else {
-                            createJsonObjectToggle(btnLocking, false, R.drawable.ic_lock_buka_hitam, R.color.colorTulisan, "statusdoor");
+                            createJsonObjectToggle(btnGpsMain, false, R.drawable.ic_gps_hitam, R.color.colorTulisan, "statusgps");
                         }
                         break;
 
-                    case R.id.btnLights:
-                        if(b) {
-                            createJsonObjectToggle(btnLights, true, R.drawable.ic_lamp_hijau, R.color.colorHijau, "statuslampu");
-                        }
-                        else {
-                            createJsonObjectToggle(btnLights, false, R.drawable.ic_lamp_hitam, R.color.colorTulisan, "statuslampu");
-                        }
-                        break;
-
-                    case R.id.btnEngineMain:
-                        if(b) {
-                            createJsonObjectToggle(btnEngineMain, true, R.drawable.ic_power_hijau, R.color.colorHijau, "statusengine");
-                        }
-                        else {
-                            createJsonObjectToggle(btnEngineMain, false, R.drawable.ic_power_hitam, R.color.colorTulisan, "statusengine");
-                        }
-                        break;
                 }
             }
         });
@@ -206,25 +220,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<RelayModel> call, Response<RelayModel> response) {
                 if(response.isSuccessful()){
-                    btnLocking = (ToggleButton) findViewById(R.id.btnLocking);
-                    if(response.body().getDoor()){
-                        setOnOffToggle(btnLocking, R.drawable.ic_lock_tutup_hijau, R.color.colorHijau, true, "Lock");
+                    btnGpsMain = (ToggleButton) findViewById(R.id.btnGpsMain);
+                    if(response.body().getGps()){
+                        setOnOffToggle(btnGpsMain, R.drawable.ic_gps_hijau, R.color.colorHijau, true, "GPS");
                     }else{
-                        setOnOffToggle(btnLocking, R.drawable.ic_lock_buka_hitam, R.color.colorTulisan, false, "Lock");
-                    }
-
-                    btnLights = (ToggleButton) findViewById(R.id.btnLights);
-                    if(response.body().getLamp()){
-                        setOnOffToggle(btnLights, R.drawable.ic_lamp_hijau, R.color.colorHijau, true, "Light");
-                    }else{
-                        setOnOffToggle(btnLights, R.drawable.ic_lamp_hitam, R.color.colorTulisan, false, "Light");
-                    }
-
-                    btnEngineMain = (ToggleButton) findViewById(R.id.btnEngineMain);
-                    if(response.body().getEngine()){
-                        setOnOffToggle(btnEngineMain, R.drawable.ic_power_hijau, R.color.colorHijau, true, "Power");
-                    }else{
-                        setOnOffToggle(btnEngineMain, R.drawable.ic_power_hitam, R.color.colorTulisan, false, "Power");
+                        setOnOffToggle(btnGpsMain, R.drawable.ic_gps_hitam, R.color.colorTulisan, false, "GPS");
                     }
                 }
             }
@@ -250,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private Emitter.Listener onStatusLampu = new Emitter.Listener() {
+    private Emitter.Listener onStatusGps = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
             runOnUiThread(new Runnable() {
@@ -263,66 +263,7 @@ public class MainActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         return;
                     }
-                    Log.e("status lampu", msg);
-                    imgRespon = (ImageView) findViewById(R.id.imgAppRespon);
-                    if(msg == "true"){
-                        imgRespon.setImageResource(R.drawable.kondisilampuon);
-                    }
-                    else{
-                        imgRespon.setImageResource(R.drawable.kondisireadyon);
-                    }
-                }
-            });
-        }
-    };
-
-    private Emitter.Listener onStatusDoor = new Emitter.Listener() {
-        @Override
-        public void call(final Object... args) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    JSONObject data = (JSONObject) args[0];
-                    String msg;
-                    try {
-                        msg = data.getString("msg");
-                    } catch (JSONException e) {
-                        return;
-                    }
-                    Log.e("status door", msg);
-                    imgRespon = (ImageView) findViewById(R.id.imgAppRespon);
-                    if(msg == "true"){
-                        imgRespon.setImageResource(R.drawable.kondisireadyoff);
-                    }
-                    else{
-                        imgRespon.setImageResource(R.drawable.kondisireadyon);
-                    }
-                }
-            });
-        }
-    };
-
-    private Emitter.Listener onStatusEngine = new Emitter.Listener() {
-        @Override
-        public void call(final Object... args) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    JSONObject data = (JSONObject) args[0];
-                    String msg;
-                    try {
-                        msg = data.getString("msg");
-                    } catch (JSONException e) {
-                        return;
-                    }
-                    Log.e("status engine", msg);
-                    imgRespon = (ImageView) findViewById(R.id.imgAppRespon);
-                    if(msg == "true"){
-                        imgRespon.setImageResource(R.drawable.kondisireadyoff);
-                    }
-                    else{
-                        imgRespon.setImageResource(R.drawable.kondisireadyon);
-                    }
+                    Log.d("status gps", msg);
                 }
             });
         }
