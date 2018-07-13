@@ -16,7 +16,6 @@
         <!--android:textSize="12dp" />-->
 
     <ImageView
-        android:src="@drawable/icon_speed_1"
         android:id="@+id/txtGambarDriver"
         android:paddingBottom="10dp"
         android:layout_width="match_parent"
