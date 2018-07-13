@@ -41,7 +41,7 @@ public class HistoryActivity extends AppCompatActivity {
     String isIdMobil;
     EditText editSearchLog;
     DatePickerDialog datePickerDialog;
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyy-MM-dd");
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,12 +71,12 @@ public class HistoryActivity extends AppCompatActivity {
                             bulannya = String.valueOf(newTanggal.get(Calendar.MONTH)+1);
                         }
                         editSearchLog.setText(newTanggal.get(Calendar.YEAR)+"-"+bulannya+"-"+newTanggal.get(Calendar.DAY_OF_MONTH));
-                        editSearchLog.addTextChangedListener(onTextWatcherLog);
                     }
                 }, year, mont, tgll);
                 datePickerDialog.show();
             }
         });
+        editSearchLog.addTextChangedListener(onTextWatcherLog);
 
         mRecyclerView   = (RecyclerView) findViewById(R.id.recycler_viewLogs);
         mLayoutManager  = new LinearLayoutManager(getApplicationContext());

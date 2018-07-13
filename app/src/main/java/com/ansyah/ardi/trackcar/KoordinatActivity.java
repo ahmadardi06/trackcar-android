@@ -46,7 +46,7 @@ public class KoordinatActivity extends AppCompatActivity {
     String isIdMobil;
     EditText editSearchKoordinat;
     DatePickerDialog datePickerDialog;
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyy-MM-dd");
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,12 +76,13 @@ public class KoordinatActivity extends AppCompatActivity {
                             bulannya = String.valueOf(newTanggal.get(Calendar.MONTH)+1);
                         }
                         editSearchKoordinat.setText(newTanggal.get(Calendar.YEAR)+"-"+bulannya+"-"+newTanggal.get(Calendar.DAY_OF_MONTH));
-                        editSearchKoordinat.addTextChangedListener(onTextWatcherSearchKoordinat);
                     }
                 }, year, mont, tgll);
                 datePickerDialog.show();
             }
         });
+
+        editSearchKoordinat.addTextChangedListener(onTextWatcherSearchKoordinat);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerKoordinat);
         mLayoutManager  = new LinearLayoutManager(getApplicationContext());

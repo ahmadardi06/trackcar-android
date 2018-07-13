@@ -46,7 +46,7 @@ public class DriverActivity extends AppCompatActivity {
     EditText editSearchDriver;
     Calendar nowDate;
     DatePickerDialog dtDate;
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyy-MM-dd");
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,12 +75,12 @@ public class DriverActivity extends AppCompatActivity {
                             bulannya = String.valueOf(newTanggal.get(Calendar.MONTH)+1);
                         }
                         editSearchDriver.setText(newTanggal.get(Calendar.YEAR)+"-"+bulannya+"-"+newTanggal.get(Calendar.DAY_OF_MONTH));
-                        editSearchDriver.addTextChangedListener(onTextWatcherSearchDriver);
                     }
                 }, year, mont, tgll);
                 dtDate.show();
             }
         });
+        editSearchDriver.addTextChangedListener(onTextWatcherSearchDriver);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recylcerDrivers);
         mLayoutManager  = new LinearLayoutManager(getApplicationContext());

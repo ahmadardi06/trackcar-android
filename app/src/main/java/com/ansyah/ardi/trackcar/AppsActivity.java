@@ -171,7 +171,7 @@ public class AppsActivity extends AppCompatActivity {
         });
     }
 
-    private void setOnOffToggle(final ToggleButton tg, int draw, int warna, Boolean b, String label) {
+    private void setOnOffToggle(final ToggleButton tg, int draw, int warna, Boolean b, final String label) {
         tg.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(draw), null, null);
         tg.setTextColor(getResources().getColor(warna));
         tg.setChecked(b);
@@ -183,7 +183,7 @@ public class AppsActivity extends AppCompatActivity {
         tg.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                showKonfirmasiToggle("Are you sure ?", tg, b);
+                showKonfirmasiToggle("Are you sure ?", tg, b, label);
             }
         });
     }
@@ -224,7 +224,7 @@ public class AppsActivity extends AppCompatActivity {
         d.show();
     }
 
-    private void showKonfirmasiToggle(String msg, final ToggleButton tg, final Boolean b) {
+    private void showKonfirmasiToggle(String msg, final ToggleButton tg, final Boolean b, final String label) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(AppsActivity.this);
         builder.setTitle("Confirmation");
         builder.setMessage(msg);
@@ -273,6 +273,7 @@ public class AppsActivity extends AppCompatActivity {
         builder.setNegativeButton("No", new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialogInterface, int i){
+                tg.setTextOff(label);
                 dialogInterface.dismiss();
             }
         });
