@@ -32,7 +32,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         Uri soundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher_mobil)
+                .setSmallIcon(R.drawable.homepage_icon_cars)
                 .setContentTitle("Warning On Your Car")
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setContentText(body)

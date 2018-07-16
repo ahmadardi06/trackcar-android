@@ -13,9 +13,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/icon_speed_1"
+        android:icon="@drawable/homepage_icon_cars"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/icon_speed_1"
+        android:roundIcon="@drawable/homepage_icon_cars"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
