@@ -13,39 +13,66 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:textSize="35dp"
+        android:textSize="40dp"
         android:textColor="@color/colorPutih"
-        android:text="Sign In"
-        android:layout_marginTop="180dp"
-        android:id="@+id/textView"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/editEmail" />
+        android:text="TrackCar"
+        android:layout_marginTop="120dp"
+        android:id="@+id/textView1"
+        android:layout_alignParentTop="true" />
 
-    <EditText
+    <TextView
         android:fontFamily="serif"
-        android:padding="10dp"
-        android:id="@+id/editEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="enter your email..."
-        android:inputType="textEmailAddress"
-        android:layout_margin="10dp"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentEnd="true" />
+        android:textAlignment="center"
+        android:textSize="15dp"
+        android:textColor="@color/colorPutih"
+        android:text="Sign in to system"
+        android:id="@+id/textView2"
+        android:layout_marginBottom="15dp"
+        android:layout_below="@+id/textView1"
+        android:layout_alignStart="@+id/btnLogin" />
 
-    <EditText
-        android:fontFamily="serif"
-        android:padding="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:id="@+id/editPassword"
-        android:layout_width="match_parent"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayoutUser"
         android:layout_height="wrap_content"
-        android:hint="enter your password..."
-        android:inputType="textPassword"
-        android:layout_below="@+id/editEmail"
-        android:layout_alignParentEnd="true" />
+        android:layout_width="match_parent"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentEnd="true">
+
+        <EditText
+            android:fontFamily="serif"
+            android:padding="10dp"
+            android:id="@+id/editEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="enter your email..."
+            android:inputType="textEmailAddress"
+            android:layout_margin="10dp" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayoutPassword"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        app:passwordToggleEnabled="true"
+        android:layout_below="@+id/textInputLayoutUser"
+        android:layout_alignParentEnd="true">
+
+        <EditText
+            android:fontFamily="serif"
+            android:padding="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:id="@+id/editPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="enter your password..."
+            android:inputType="textPassword" />
+
+    </android.support.design.widget.TextInputLayout>
 
     <Button
         android:textColor="@color/colorPutih"
@@ -58,12 +85,10 @@
         android:textAllCaps="false"
         android:fontFamily="serif"
         android:textSize="15dp"
-        android:layout_below="@+id/editPassword"
+        android:layout_below="@+id/textInputLayoutPassword"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_alignEnd="@+id/editPassword"
-        android:layout_alignStart="@+id/editPassword" />
+        android:layout_marginBottom="5dp" />
 
 </RelativeLayout>
